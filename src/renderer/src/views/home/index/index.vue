@@ -1,11 +1,14 @@
 <template>
   <ScrollPage :init="init" :pull-down="pullDownrefresh">
-    <Slide :data="bannerList" />
+    <Row>
+      <Col :xs="24" :sm="16"> <Slide :data="bannerList" /></Col>
+      <Col :xs="24" :sm="8">2</Col>
+    </Row>
   </ScrollPage>
 </template>
 
 <script lang="ts" setup>
-// import { App } from 'ant-design-vue'
+import { Row, Col } from 'ant-design-vue'
 import { IndexHook } from '@renderer/hooks/homeHook'
 
 defineOptions({

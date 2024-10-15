@@ -24,6 +24,9 @@
     </div>
   </div>
   <div class="menu menuLeft">
+    <div class="item back">
+      <i class="iconfont">&#xe603;</i>
+    </div>
     <template v-for="(item, index) in menuList" :key="item.label">
       <div
         v-if="!item.customize"
@@ -176,6 +179,7 @@ const handlerClick = (item, index) => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-right: 1px solid #f0f0f0;
 
   .item {
     -webkit-app-region: no-drag;
@@ -185,7 +189,7 @@ const handlerClick = (item, index) => {
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-    border-radius: @border-radius-base;
+    border-radius: 8px;
     color: @text-color2;
     cursor: pointer;
 
@@ -204,6 +208,13 @@ const handlerClick = (item, index) => {
     &.active {
       color: @primary-color;
     }
+    &.back {
+      background: #fafafa;
+      transition: all 0.3s;
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
   }
 
   .my {
@@ -217,7 +228,7 @@ const handlerClick = (item, index) => {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
   .menuTop {
     margin-top: 0;
     position: relative;

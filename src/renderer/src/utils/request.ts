@@ -1,13 +1,6 @@
 import axios from 'axios'
-import { AxiosResponse } from 'axios'
 import { RequestCookieKey } from '@renderer/config/index'
 import { useStorage } from '@vueuse/core'
-
-interface ApiResponse {
-  status: number
-  message: string
-  data?: any
-}
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL, // url = base url + request url
@@ -20,7 +13,7 @@ service.interceptors.request.use(
   async (config) => {
     const { params = {}, data } = config
     const cookie = useStorage(RequestCookieKey, undefined)
-    console.log(cookie)
+    // console.log(cookie)
     params['timestamp'] = +new Date()
 
     if (data?.limit && data?.offset) {

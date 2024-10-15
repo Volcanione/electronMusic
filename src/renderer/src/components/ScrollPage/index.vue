@@ -9,7 +9,7 @@
         <span v-if="pullDown" class="pullingDownLoading">
           <Down />
         </span>
-        <div :ref="viewContentInit" class="viewContent" :class="wrapperClassName">
+        <div ref="viewContentRef" class="viewContent" :class="wrapperClassName">
           <slot />
         </div>
         <template v-if="pullUp">
@@ -111,14 +111,15 @@ const init: any = async (el: HTMLElement) => {
 
 //
 //设置viewcontent高度
-const viewContentInit = async (el) => {
-  if (!el) {
+const viewContentRef = ref<HTMLElement>()
+const viewContentInit = async () => {
+  await nextTick()
+  if (!viewContentRef.value) {
     return
   }
-  await nextTick()
-  console.log(el)
   // console.dir( scrollWarpper.value,2)
-  scrollRef.value && (el.style.minHeight = scrollRef.value.offsetHeight + 0.5 + 'px')
+  scrollRef.value &&
+    (viewContentRef.value.style.minHeight = scrollRef.value.offsetHeight + 0.5 + 'px')
 }
 
 /***上拉加载* */
@@ -181,7 +182,7 @@ const leaveThresholdHandler = () => {
 
 //监听dom
 const resizeObserver = new ResizeObserver(() => {
-  console.log(111)
+  viewContentInit()
   Scroll.refresh()
 })
 
