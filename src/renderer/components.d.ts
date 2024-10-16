@@ -11,8 +11,10 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     RouterViewContent: typeof import('./src/components/RouterViewContent/index.vue')['default']
+    ScrollBox: typeof import('./src/components/ScrollBox/index.vue')['default']
     ScrollPage: typeof import('./src/components/ScrollPage/index.vue')['default']
     Slide: typeof import('./src/components/Slide/index.vue')['default']
+    SongItem: typeof import('./src/components/SongItem/index.vue')['default']
     Tabbar: typeof import('./src/components/Tabbar/index.vue')['default']
     Up: typeof import('./src/components/ScrollPage/components/up/index.vue')['default']
   }

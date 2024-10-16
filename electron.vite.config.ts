@@ -64,7 +64,7 @@ export default defineConfig(({ mode }) => {
               'text-color': '#313233',
               'text-color2': '#626366',
               'text-color3': '#939599',
-              'border-radius-base': '4px',
+              'border-radius-base': '12px',
               'form-vertical-label-padding': ' 0 0 7px',
               'tree-title-height': '20px'
             }

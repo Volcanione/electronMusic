@@ -92,7 +92,7 @@ export const AudioOperatorHook = () => {
   //播放
   const setAudioElementState = async () => {
     //state true 播放，false 暂停
-    if (!audioElement || !audioElement.value || mediaParam?.error) {
+    if (!audioElement || !audioElement.value || mediaParam?.error || !audioElement.value.src) {
       return
     }
     Object.assign(mediaParam, {

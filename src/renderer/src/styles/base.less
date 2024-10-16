@@ -140,3 +140,64 @@ body {
     url('../fonts/HuaWenYuanTi-REGULAR-2.ttf') format('svg');
   /* iOS 4.1- */
 }
+
+//
+.ant-card {
+  overflow: hidden;
+
+  &.transparent {
+    background: transparent;
+    border-color: transparent;
+
+    .ant-card-body,
+    .ant-card-head {
+      border-color: transparent;
+    }
+
+    &.ant-card-small {
+
+      .ant-card-body,
+      .ant-card-head {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  }
+
+}
+
+
+//通用class
+.mt20 {
+  margin-top: 20px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.mlr20 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.mr12 {
+  margin-right: 12px;
+}
+
+.mr20 {
+  margin-right: 20px;
+}
+
+.lastMr0 {
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+
+.lastMl0 {
+  &:last-child {
+    margin-left: 0;
+  }
+}

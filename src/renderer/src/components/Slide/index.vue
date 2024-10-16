@@ -72,7 +72,6 @@ onMounted(() => {
 <style lang="less" scoped>
 .slide-banner {
   position: relative;
-  margin-top: 20px;
   width: 100%;
   overflow: hidden;
   .slide-banner-wrapper {

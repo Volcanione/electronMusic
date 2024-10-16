@@ -1,10 +1,10 @@
 <template>
   <Spin
     :spinning="typeof loading === 'boolean' ? loading : initLoading"
-    wrapper-class-name="scrollCom"
+    wrapper-class-name="scrollPageCom"
     :indicator="indicator"
   >
-    <div ref="scrollRef" class="scroll">
+    <div ref="scrollRef" class="scrollPage">
       <div ref="contentRef" class="content">
         <span v-if="pullDown" class="pullingDownLoading">
           <Down />
@@ -28,7 +28,7 @@ import Pullup from '@better-scroll/pull-up'
 import ObserveDOM from '@better-scroll/observe-dom'
 import Down from './components/down/index.vue'
 import Up from './components/up/index.vue'
-import { ScrollPageProps } from '@renderer/types/injectionKey'
+import type { ScrollPageProps } from '@renderer/types/components'
 import { Spin } from 'ant-design-vue'
 
 import LoadingIcon from '@renderer/assets/puff.svg?url'
@@ -211,7 +211,7 @@ onMounted(async () => {
 </script>
 
 <style lang="less" scoped>
-.scrollCom {
+.scrollPageCom {
   height: 100%;
   overflow: hidden;
   :deep(.ant-spin-container) {
@@ -225,7 +225,7 @@ onMounted(async () => {
     }
   }
 }
-.scroll {
+.scrollPage {
   height: 100%;
   overflow: hidden;
   position: relative;
