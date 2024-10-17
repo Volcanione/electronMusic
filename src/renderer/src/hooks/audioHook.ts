@@ -1,4 +1,4 @@
-import { ref, reactive, inject, Ref, computed, watch } from 'vue'
+import { ref, reactive, inject, Ref, computed } from 'vue'
 import { AudioElementKey, MediaParamKey } from '@renderer/types/injectionKey'
 import { App } from 'ant-design-vue'
 
@@ -52,12 +52,12 @@ export const AudioHook = () => {
     }
   }
 
-  watch(
-    () => mediaParam.progress,
-    (val) => {
-      console.log(val)
-    }
-  )
+  // watch(
+  //   () => mediaParam.progress,
+  //   (val) => {
+  //     // console.log(val)
+  //   }
+  // )
 
   return {
     initAudio,
@@ -74,29 +74,26 @@ export const AudioOperatorHook = () => {
   )
 
   //设置url
-  const setAudioElementUrl = () => {
-    if (!audioElement || !audioElement.value) {
+  const setAudioElementUrl = (url: string) => {
+    if (!audioElement || !audioElement.value || !url) {
       return
     }
-    audioElement.value.src =
-      'http://m801.music.126.net/20241015184440/0e9d3942ed86bc097820beb174efb2d7/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/55629204206/0151/48a3/dc22/4eff5c7ceeba80b5865f0bf23f5d39d0.mp3'
-
-    // setTimeout(() => {
-    //   audioElement.value.src =
-    //     'http://m801.music.126.net/20241015175443/d6732dffb3bad0f74b77b5385604bfb9/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/55631358445/d85a/3cb2/d4c5/5ec502f3a708a07120bfec5f0139acc7.mp3'
-    // }, 5000)
+    audioElement.value.src = url
   }
 
   //异常处理
 
   //播放
-  const setAudioElementState = async () => {
+  const setAudioElementState = async (state?: boolean) => {
     //state true 播放，false 暂停
     if (!audioElement || !audioElement.value || mediaParam?.error || !audioElement.value.src) {
+      Object.assign(mediaParam, {
+        playState: false
+      })
       return
     }
     Object.assign(mediaParam, {
-      playState: !mediaParam.playState
+      playState: typeof state === 'boolean' ? state : !mediaParam.playState
     })
     try {
       if (mediaParam.playState) {
@@ -108,6 +105,7 @@ export const AudioOperatorHook = () => {
       }
     } catch (error) {
       //
+      return Promise.reject(error)
     }
   }
 

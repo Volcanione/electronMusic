@@ -5,17 +5,23 @@
       <RouterViewContent :reverse="reverseState" />
       <HomeController />
     </div>
+    <PlayerPage :open="playerConfig.playerShow" @close="setPlayerShowState(false)" />
   </div>
 </template>
 <script lang="ts" setup>
 import { ref, provide } from 'vue'
 import MenuCom from './menu/index.vue'
 import HomeController from './player/HomeController/index.vue'
+import PlayerPage from './player/index.vue'
 
 import { AudioHook } from '@renderer/hooks/audioHook'
+import { PlayerHook } from '@renderer/hooks/playerHook'
 import { AudioElementKey, MediaParamKey } from '@renderer/types/injectionKey'
 
 const { initAudio, audioElement, mediaParam } = AudioHook()
+const { playerConfig, setPlayerShowState } = PlayerHook()
+
+//
 
 initAudio()
 
@@ -32,7 +38,13 @@ const changeMenu = (item, oldActiveIndex, index) => {
   console.log(item)
   console.log(oldActiveIndex, index)
   reverseState.value = oldActiveIndex < index
+
+  //测试open
+  open.value = true
 }
+
+//
+const open = ref(false)
 </script>
 <style lang="less" scoped>
 .layout {

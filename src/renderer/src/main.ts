@@ -4,6 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import components from '@renderer/components/'
 import router from '@renderer/router/index'
+import 'animate.css'
 
 const pinia = createPinia()
 
