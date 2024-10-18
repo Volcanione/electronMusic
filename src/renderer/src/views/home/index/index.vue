@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import {} from 'vue'
 import { Flex, Card } from 'ant-design-vue'
 import { IndexHook } from '@renderer/hooks/homeHook'
 import { PlayerHook } from '@renderer/hooks/playerHook'

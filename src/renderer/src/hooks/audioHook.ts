@@ -1,9 +1,9 @@
 import { ref, reactive, inject, Ref, computed } from 'vue'
 import { AudioElementKey, MediaParamKey } from '@renderer/types/injectionKey'
-import { App } from 'ant-design-vue'
+// import { App } from 'ant-design-vue'
 
 export const AudioHook = () => {
-  const { message } = App.useApp()
+  // const { message } = App.useApp()
   const audioElement = ref<HTMLAudioElement>()
   const mediaParam = reactive({
     duration: 0,
@@ -16,7 +16,14 @@ export const AudioHook = () => {
       return +((mediaParam.currentTime / mediaParam.duration) * 100).toFixed(3)
     }),
     error: undefined
-  })
+  }) as {
+    duration: number
+    currentTime: number
+    playState: boolean
+    progress: number
+    error: any
+    onended?: () => void
+  }
   const initAudio = () => {
     audioElement.value = new Audio()
     audioElement.value.preload = 'metadata'
@@ -27,7 +34,7 @@ export const AudioHook = () => {
 
       audioElement.value.onerror = () => {
         const error = { code: 0, msg: '无效音乐地址' }
-        message.error(error.msg)
+        // message.error(error.msg)
         Object.assign(mediaParam, {
           error
         })
@@ -46,6 +53,12 @@ export const AudioHook = () => {
         Object.assign(mediaParam, {
           currentTime: audioElement.value?.currentTime || 0
         })
+      }
+
+      //播放结束
+      audioElement.value.onended = () => {
+        // console.log('播放结束')
+        mediaParam.onended && mediaParam.onended()
       }
     } catch (error) {
       //
@@ -90,7 +103,7 @@ export const AudioOperatorHook = () => {
       Object.assign(mediaParam, {
         playState: false
       })
-      return
+      return Promise.reject({ code: 0, msg: '无效音乐地址' })
     }
     Object.assign(mediaParam, {
       playState: typeof state === 'boolean' ? state : !mediaParam.playState
@@ -108,11 +121,16 @@ export const AudioOperatorHook = () => {
       return Promise.reject(error)
     }
   }
+  //进度切换
+  const changeProgress = (progress: number) => {
+    audioElement.value.currentTime = (progress / 100) * mediaParam.duration
+  }
 
   return {
     audioElement,
     setAudioElementUrl,
     setAudioElementState,
-    mediaParam
+    mediaParam,
+    changeProgress
   }
 }

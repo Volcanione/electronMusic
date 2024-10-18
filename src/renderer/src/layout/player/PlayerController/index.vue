@@ -5,7 +5,13 @@
     </div>
     <div class="content">2</div>
     <div class="footer">
-      <ProgressBar :value="mediaParam.progress" @change-progress="changeProgress" />
+      <ProgressBar
+        :value="mediaParam.progress"
+        class="ProgressBar"
+        :disabled="!mediaParam.duration"
+        @change="changeProgress"
+      />
+      <Controller />
     </div>
     <div class="playBg">
       <!-- <div
@@ -23,17 +29,18 @@
 import { ref } from 'vue'
 import PlayerHeader from './header.vue'
 import ProgressBar from './Progress.vue'
+import Controller from './controller.vue'
 import BgUrl from '@renderer/assets/bg.png?url'
 import { PlayerHook } from '@renderer/hooks/playerHook'
-const { mediaParam, playPause, setPlayerShowState } = PlayerHook()
+const { mediaParam, changeProgress } = PlayerHook()
 
 const emit = defineEmits(['close'])
 
 const activeType = ref(0)
 
-const changeProgress = (data) => {
-  console.log(data)
-}
+// const changeProgress = (data) => {
+//   console.log(data)
+// }
 </script>
 
 <style lang="less" scoped>
@@ -53,6 +60,11 @@ const changeProgress = (data) => {
   }
   .footer {
     height: 130px;
+    display: flex;
+    flex-direction: column;
+    .ProgressBar {
+      margin: 0 20px;
+    }
   }
 
   .playBg {

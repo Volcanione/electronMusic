@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import BScroll from '@better-scroll/core'
-import { reactive, nextTick, onMounted, ref, onBeforeUnmount } from 'vue'
+import { onMounted, ref, onBeforeUnmount } from 'vue'
 import ObserveDOM from '@better-scroll/observe-dom'
 import { throttle } from 'lodash'
 import type { ScrollBoxProps } from '@renderer/types/components'

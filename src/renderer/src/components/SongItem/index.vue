@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import { Image } from 'ant-design-vue'
-import { ref, computed, reactive } from 'vue'
+import { computed } from 'vue'
 import songItemBg from '@renderer/assets/songListBG.png?url'
 
 const props = withDefaults(

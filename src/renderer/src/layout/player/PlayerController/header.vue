@@ -13,8 +13,8 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeUnmount, ref, onMounted } from 'vue'
-const props = withDefaults(
+import { onBeforeUnmount, onMounted } from 'vue'
+withDefaults(
   defineProps<{
     active: number
   }>(),
@@ -42,9 +42,6 @@ const list = [
 const change = (item) => {
   activeValue.value = item.value
 }
-
-//监听dom
-const show = ref(true)
 
 onMounted(() => {})
 

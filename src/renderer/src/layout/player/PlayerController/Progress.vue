@@ -6,16 +6,18 @@
       @click.capture="handlerClick"
       @mousedown.capture="fn_progressTouchStart"
     >
-      <div class="line" :style="{ width: `${value}%` }"></div>
+      <div class="line" :style="{ width: `${timeCount}%` }">
+        <img :src="ProgressTipUrl" class="icon" />
+      </div>
     </div>
-    <div ref="lineBar" class="bar" :style="{ left: `${barLeft}px` }">
+    <!-- <div ref="lineBar" class="bar" :style="{ left: `${barLeft}px` }">
       <img :src="ProgressTipUrl" />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, watch } from 'vue'
 import ProgressTipUrl from '@renderer/assets/tigers.svg?url'
 const props = defineProps({
   value: {
@@ -28,31 +30,23 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['changeProgress'])
+const emit = defineEmits(['changeProgress', 'change'])
 
 //常量
 
-const timeCount = defineModel<number>('value', { default: 0 })
+const timeCount = ref(0)
 
 const barLeft = ref(0)
 const progressBar = ref<HTMLElement>()
-const lineBar = ref<HTMLElement>()
 const WidthLength = ref(0)
 const touchStart = ref(0)
 
-//方法
-//初始化
-// const wacthmodelValue = () => {
-//   value.value = Math.min(props.value, 100);
-// };
-
 //获取进度条可拖拽总长度
-const getWidthLenght = async () => {
-  const progessBarDom = progressBar.value as HTMLElement
-  const lineBarDom = lineBar.value as HTMLElement
+const getWidthLength = async () => {
+  const progressBarDom = progressBar.value as HTMLElement
   await nextTick()
   try {
-    WidthLength.value = progessBarDom.clientWidth - lineBarDom.clientWidth
+    WidthLength.value = progressBarDom.clientWidth
   } catch (error) {
     console.log(error)
   }
@@ -61,7 +55,7 @@ const getWidthLenght = async () => {
 
 //监听器
 const intersectionObserver = new ResizeObserver(function () {
-  getWidthLenght()
+  getWidthLength()
 })
 //设置球位置
 const setBarLet = () => {
@@ -79,8 +73,12 @@ const handlerClick = (event) => {
 
 const TouchState = ref(false)
 
-const fn_progressTouchEnd = () => {
+const fn_progressTouchEnd = async () => {
   TouchState.value = false
+  await nextTick()
+  emit('change', timeCount.value)
+  document.body.removeEventListener('mouseup', fn_progressTouchEnd)
+  document.body.removeEventListener('mousemove', fn_progressTouchMove)
 }
 
 const fn_progressTouchStart = (event: MouseEvent) => {
@@ -89,23 +87,20 @@ const fn_progressTouchStart = (event: MouseEvent) => {
   }
   document.body.addEventListener('mouseup', fn_progressTouchEnd)
   document.body.addEventListener('mousemove', fn_progressTouchMove)
-  console.log(event)
   TouchState.value = true
-  // touchStart.value = event.touches[0].clientX
   touchStart.value = event.pageX
   setValue(touchStart.value)
 }
 const fn_progressTouchMove = (event: MouseEvent) => {
-  if (props.disabled || !TouchState.value) {
+  if (props.disabled || !TouchState.value || !event.buttons) {
     return
   }
-  // const move = event.touches[0].clientX
   const move = event.pageX
   setValue(move)
 }
 
 //设置value
-const setValue = async (length) => {
+const setValue = async (length: number) => {
   const percentage = +(((length - 25) / WidthLength.value) * 100).toFixed(3)
   timeCount.value = Math.min(Math.max(percentage, 0), 100)
   await nextTick()
@@ -117,49 +112,63 @@ const ProRoot = async (event) => {
     return
   }
   await nextTick()
-  getWidthLenght()
+  getWidthLength()
   //屏幕大小改变
   intersectionObserver.observe(progressBar.value as Element)
 }
+
+watch(
+  () => props.value,
+  (val) => {
+    if (TouchState.value) {
+      return
+    }
+    timeCount.value = val
+  },
+  {
+    immediate: true
+  }
+)
 </script>
 <style lang="less" scoped>
 .root {
-  width: 100%;
   position: relative;
 
   .progressBar {
     width: 100%;
-    height: 6px;
-    background: rgba(0, 0, 0, 0.5);
+    height: 12px;
     position: relative;
-    border-radius: 3px;
-    overflow: hidden;
-    cursor: pointer;
-
-    .line {
-      height: 100%;
-      background: #fff;
-      pointer-events: none;
-    }
-  }
-
-  .bar {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    overflow-y: visible !important;
-    pointer-events: none;
     display: flex;
     align-items: center;
-    justify-content: center;
+    // overflow: hidden;
+    cursor: pointer;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 3px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
-    img {
-      width: 30px;
-      height: 30px;
+    .line {
+      height: 6px;
+      background: #fff;
+      pointer-events: none;
+      border-radius: 3px;
+      position: relative;
+      img {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        top: 50%;
+        transform: translate(50%, -50%);
+      }
     }
   }
 }

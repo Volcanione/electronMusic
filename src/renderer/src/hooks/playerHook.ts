@@ -7,11 +7,20 @@ import type { MusicItem } from 'homeIndex'
 export const PlayerHook = () => {
   const { message } = App.useApp()
 
-  const { setAudioElementUrl, setAudioElementState, mediaParam } = AudioOperatorHook()
+  const { setAudioElementUrl, setAudioElementState, mediaParam, changeProgress } =
+    AudioOperatorHook()
   const { getMusicUrl } = MusicHook()
 
-  const { addPlayerList, checkMusicByPlayList, playerConfig, setNowPlayId, setPlayerShowState } =
-    storePlayer()
+  const {
+    addMusicToPlayerList,
+    // checkMusicByPlayList,
+    // addMusicToPlayerHisList,
+    playerConfig,
+    setNowPlayId,
+    setPlayerShowState,
+    nextMusic,
+    setPlayerMode
+  } = storePlayer()
 
   //选择并播放
   const checkMusicPlaying = async (data: MusicItem) => {
@@ -28,13 +37,13 @@ export const PlayerHook = () => {
 
       **/
       //添加到播放列表
-      addPlayerList(data)
+      addMusicToPlayerList(data)
       //显示播放页
       setPlayerShowState()
     } catch (error: any) {
       //
       console.log(error)
-      message.error(error?.msg || '未知错误')
+      message.error(error?.msg || '音乐不可播放')
     }
   }
 
@@ -50,5 +59,39 @@ export const PlayerHook = () => {
     }
   }
 
-  return { checkMusicPlaying, mediaParam, playPause, playerConfig, setPlayerShowState }
+  //下一首处理
+
+  const nextPlay = () => {
+    const data = nextMusic()
+    if (data) {
+      //继续播放
+      console.log('下一首')
+      checkMusicPlaying(data)
+    } else {
+      //结束播放\
+      console.log('播放结束')
+      playPause(false)
+    }
+  }
+
+  //上一首
+
+  //播放结束处理
+
+  Object.assign(mediaParam, {
+    onended: () => {
+      nextPlay()
+    }
+  })
+
+  return {
+    checkMusicPlaying,
+    mediaParam,
+    playPause,
+    playerConfig,
+    setPlayerShowState,
+    changeProgress,
+    setPlayerMode,
+    nextPlay
+  }
 }
