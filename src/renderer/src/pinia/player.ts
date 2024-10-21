@@ -78,10 +78,6 @@ export const storePlayer = defineStore('player', () => {
     }
     const idx = findIndex(playerList, ['id', playerConfig.nowPlayId])
 
-    // //将当前播放添加到播放历史列表
-    // const nowPlayData = find(playerList, ['id', playerConfig.nowPlayId])
-    // addMusicToPlayerHisList(nowPlayData)
-
     //清空当前播放的id
     setNowPlayId()
 
@@ -99,10 +95,31 @@ export const storePlayer = defineStore('player', () => {
           reset()
           data = getRandomItem() as MusicItem
         }
-        console.log(data?.id)
+
         return data
     }
   }
+
+  //上一首
+  const prevMusic: () => MusicItem | undefined = () => {
+    if (!playerHisList.length) {
+      return
+    }
+    const idx = findIndex(playerHisList, ['id', playerConfig.nowPlayId])
+    //清空当前播放的id
+    setNowPlayId()
+
+    //返回下一首数据
+    return playerList[idx === 0 ? playerHisList.length - 1 : idx - 1]
+  }
+
+  //当前播放的歌曲数据
+  const nowPlayData = computed(() => {
+    if (!playerConfig.nowPlayId) {
+      return undefined
+    }
+    return playerList.find((item) => item.id === playerConfig.nowPlayId) as MusicItem
+  })
 
   return {
     playerConfig,
@@ -113,7 +130,9 @@ export const storePlayer = defineStore('player', () => {
     setPlayerShowState,
     setPlayerMode,
     nextMusic,
+    prevMusic,
     addMusicToPlayerHisList,
-    playerHisList
+    playerHisList,
+    nowPlayData
   }
 })

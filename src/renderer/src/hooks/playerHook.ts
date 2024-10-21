@@ -1,3 +1,4 @@
+import { storeToRefs } from 'pinia'
 import { storePlayer } from '@renderer/pinia/player'
 import { AudioOperatorHook } from '@renderer/hooks/audioHook'
 import { MusicHook } from '@renderer/hooks/musicHook'
@@ -11,16 +12,21 @@ export const PlayerHook = () => {
     AudioOperatorHook()
   const { getMusicUrl } = MusicHook()
 
+  //导入store
+  const PlayerStore = storePlayer()
   const {
     addMusicToPlayerList,
     // checkMusicByPlayList,
-    // addMusicToPlayerHisList,
+    addMusicToPlayerHisList,
     playerConfig,
     setNowPlayId,
     setPlayerShowState,
     nextMusic,
+    prevMusic,
     setPlayerMode
-  } = storePlayer()
+  } = PlayerStore
+
+  const { nowPlayData } = storeToRefs(PlayerStore)
 
   //选择并播放
   const checkMusicPlaying = async (data: MusicItem) => {
@@ -38,6 +44,7 @@ export const PlayerHook = () => {
       **/
       //添加到播放列表
       addMusicToPlayerList(data)
+      addMusicToPlayerHisList(data) //同时添加到历史列表
       //显示播放页
       setPlayerShowState()
     } catch (error: any) {
@@ -75,6 +82,18 @@ export const PlayerHook = () => {
   }
 
   //上一首
+  const prevPlay = () => {
+    const data = prevMusic()
+    if (data) {
+      //继续播放
+      console.log('上一首')
+      checkMusicPlaying(data)
+    } else {
+      //结束播放\
+      console.log('播放结束')
+      playPause(false)
+    }
+  }
 
   //播放结束处理
 
@@ -92,6 +111,8 @@ export const PlayerHook = () => {
     setPlayerShowState,
     changeProgress,
     setPlayerMode,
-    nextPlay
+    nextPlay,
+    prevPlay,
+    nowPlayData
   }
 }

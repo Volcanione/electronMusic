@@ -5,7 +5,7 @@
       <i v-else-if="playerConfig.playerMode === 'list'" class="iconfont">&#xe6a3;</i>
       <i v-else class="iconfont">&#xe624;</i>
     </div>
-    <div class="prev">
+    <div class="prev" @click="prevPlay">
       <i class="iconfont">&#xe607;</i>
     </div>
     <div class="play" @click="play">
@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 import { PlayerHook } from '@renderer/hooks/playerHook'
-const { mediaParam, playerConfig, setPlayerMode, playPause, nextPlay } = PlayerHook()
+const { mediaParam, playerConfig, setPlayerMode, playPause, nextPlay, prevPlay } = PlayerHook()
 const play = async () => {
   try {
     playPause()

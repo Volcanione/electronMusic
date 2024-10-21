@@ -3,7 +3,14 @@
     <div class="header">
       <PlayerHeader v-model:active="activeType" @close="emit('close')" />
     </div>
-    <div class="content">2</div>
+    <div class="content">
+      <div class="musicPanel">
+        <div class="songDisc">
+          <Disc :src="nowPlayData?.picUrl" :player-state="mediaParam.playState" />
+        </div>
+      </div>
+      <div class="musicInfo"></div>
+    </div>
     <div class="footer">
       <ProgressBar
         :value="mediaParam.progress"
@@ -30,9 +37,10 @@ import { ref } from 'vue'
 import PlayerHeader from './header.vue'
 import ProgressBar from './Progress.vue'
 import Controller from './controller.vue'
+import Disc from './components/disc.vue'
 import BgUrl from '@renderer/assets/bg.png?url'
 import { PlayerHook } from '@renderer/hooks/playerHook'
-const { mediaParam, changeProgress } = PlayerHook()
+const { mediaParam, changeProgress, nowPlayData } = PlayerHook()
 
 const emit = defineEmits(['close'])
 
@@ -57,6 +65,24 @@ const activeType = ref(0)
   }
   .content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    & > div {
+      flex: 1;
+    }
+
+    .musicPanel {
+      .songDisc {
+        flex-shrink: 0;
+        flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 320px;
+        width: 80%;
+      }
+    }
   }
   .footer {
     height: 130px;
@@ -82,6 +108,17 @@ const activeType = ref(0)
       height: 100%;
       opacity: 0.6;
       object-fit: cover;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .player {
+    .content {
+      flex-direction: row;
+      & > div {
+        flex: 1;
+      }
     }
   }
 }
