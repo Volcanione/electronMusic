@@ -22,6 +22,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noImplicitThis": false,
     "noFallthroughCasesInSwitch": true,
     "allowJs": true,
     "composite": true,
@@ -38,4 +39,5 @@
     "src/renderer/**/*.tsx",
     "src/renderer/**/*.vue",
   ],
+
 }

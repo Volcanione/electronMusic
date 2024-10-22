@@ -3,14 +3,20 @@
     <div class="header">
       <PlayerHeader v-model:active="activeType" @close="emit('close')" />
     </div>
-    <div class="content">
+    <!-- <div class="content">
       <div class="musicPanel">
         <div class="songDisc">
           <Disc :src="nowPlayData?.picUrl" :player-state="mediaParam.playState" />
         </div>
       </div>
-      <div class="musicInfo"></div>
-    </div>
+      <div class="musicInfo">
+        <div class="name">
+          <span class="title ellipsis">{{ nowPlayData?.name || 'nomusic' }}</span>
+          <span class="arts">{{ nowPlayData?.song?.artists[0]?.name || '-' }}</span>
+        </div>
+      </div>
+    </div> -->
+    <Panel :active="activeType" />
     <div class="footer">
       <ProgressBar
         :value="mediaParam.progress"
@@ -38,6 +44,7 @@ import PlayerHeader from './header.vue'
 import ProgressBar from './Progress.vue'
 import Controller from './controller.vue'
 import Disc from './components/disc.vue'
+import Panel from './components/panel.vue'
 import BgUrl from '@renderer/assets/bg.png?url'
 import { PlayerHook } from '@renderer/hooks/playerHook'
 const { mediaParam, changeProgress, nowPlayData } = PlayerHook()
@@ -59,6 +66,7 @@ const activeType = ref(0)
   position: relative;
   display: flex;
   flex-direction: column;
+  color: #fff;
   .header {
     height: 50px;
     display: flex;
@@ -73,6 +81,10 @@ const activeType = ref(0)
     }
 
     .musicPanel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       .songDisc {
         flex-shrink: 0;
         flex: 2;
@@ -81,6 +93,23 @@ const activeType = ref(0)
         justify-content: center;
         max-width: 320px;
         width: 80%;
+      }
+    }
+    .musicInfo {
+      .name {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+
+        .title {
+          font-size: 20px;
+        }
+
+        .arts {
+          font-size: 12px;
+        }
       }
     }
   }
@@ -118,6 +147,9 @@ const activeType = ref(0)
       flex-direction: row;
       & > div {
         flex: 1;
+      }
+      .musicInfo {
+        padding: 20px 0;
       }
     }
   }

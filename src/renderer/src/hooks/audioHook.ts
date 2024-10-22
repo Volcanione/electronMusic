@@ -65,13 +65,6 @@ export const AudioHook = () => {
     }
   }
 
-  // watch(
-  //   () => mediaParam.progress,
-  //   (val) => {
-  //     // console.log(val)
-  //   }
-  // )
-
   return {
     initAudio,
     audioElement,

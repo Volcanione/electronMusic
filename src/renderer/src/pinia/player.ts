@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import { findIndex } from 'lodash'
 import { useRandomArrayItem } from '@renderer/utils/index'
 import type { PlayerConfig } from 'player'
@@ -40,7 +40,11 @@ export const storePlayer = defineStore('player', () => {
   }
 
   //设置当前播放id
+  const oldPlayId = ref<number | undefined>()
   const setNowPlayId = (data?: MusicItem) => {
+    if (!data) {
+      oldPlayId.value = playerConfig.nowPlayId
+    }
     Object.assign(playerConfig, {
       nowPlayId: data ? data.id : ''
     })
@@ -116,7 +120,7 @@ export const storePlayer = defineStore('player', () => {
   //当前播放的歌曲数据
   const nowPlayData = computed(() => {
     if (!playerConfig.nowPlayId) {
-      return undefined
+      return playerList.find((item) => item.id === oldPlayId.value) || undefined
     }
     return playerList.find((item) => item.id === playerConfig.nowPlayId) as MusicItem
   })
