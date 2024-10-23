@@ -54,6 +54,7 @@ onBeforeUnmount(() => {})
   display: flex;
   align-items: center;
   color: #fff;
+  -webkit-app-region: drag;
   .left,
   .right {
     width: 50px;
@@ -62,6 +63,7 @@ onBeforeUnmount(() => {})
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    -webkit-app-region: no-drag;
   }
   .center {
     flex: 1;
@@ -89,6 +91,7 @@ onBeforeUnmount(() => {})
 .TabBar {
   transition: all 0.3s;
   display: block;
+  -webkit-app-region: no-drag;
 }
 
 @media (min-width: 768px) {

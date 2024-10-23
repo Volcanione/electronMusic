@@ -43,6 +43,10 @@ const play = async () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  -webkit-app-region: drag;
+  & > * {
+    -webkit-app-region: no-drag;
+  }
   .prev,
   .next {
     width: 60px;

@@ -1,99 +1,55 @@
 <template>
-  <div ref="wrapperRef" class="playContont">
-    <div ref="boxRef" class="box" :class="{ spread: widescreen }">
-      <div>1</div>
-      <div>2</div>
+  <div ref="wrapperRef" class="playContentPanel">
+    <div ref="boxRef" class="box" :class="{ left: active }">
+      <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { nextTick, ref, watch, onMounted, onBeforeMount } from 'vue'
-import BScroll from '@better-scroll/core'
-import ObserveDOM from '@better-scroll/observe-dom'
-BScroll.use(ObserveDOM)
+import { onMounted, onBeforeMount } from 'vue'
 
-const props = defineProps<{
+defineProps<{
   widescreen?: boolean
   active: number
 }>()
 
-const wrapperRef = ref<HTMLElement>()
-const boxRef = ref<HTMLElement>()
-let scroll: BScroll
+onMounted(() => {})
 
-const init = (el: HTMLElement) => {
-  scroll = new BScroll(el, {
-    scrollY: false,
-    scrollX: true,
-    bounce: false,
-    click: true,
-    preventDefault: false,
-    observeDOM: true
-  })
-  scroll.disable()
-  resizeObserver.observe(el as Element)
-}
-
-//watch
-watch(
-  () => props.active,
-  (idx) => {
-    scroll.refresh()
-    boxRef.value?.children.length &&
-      scroll.scrollToElement(boxRef.value?.children[idx] as HTMLElement, 300, 0, 0)
-  },
-  { deep: true }
-)
-
-//监听dom
-const resizeObserver = new ResizeObserver(async () => {
-  const boxChilderns = boxRef.value?.children as unknown as Array<HTMLElement>
-  for (let i = 0; i <= boxChilderns?.length - 1; i++) {
-    boxChilderns[i].style.width = wrapperRef.value?.clientWidth + 'px'
-  }
-
-  await nextTick()
-  scroll.scrollTo(
-    props.active === 0 ? 0 : wrapperRef.value?.clientWidth || 0,
-    0,
-    300,
-    undefined,
-    undefined
-  )
-  console.log(props.active)
-})
-
-onMounted(() => {
-  wrapperRef.value && init(wrapperRef.value)
-})
-
-onBeforeMount(() => {
-  resizeObserver.disconnect()
-  scroll && scroll.destroy()
-})
+onBeforeMount(() => {})
 </script>
 
-<style lang="less" scoped>
-.playContont {
+<style lang="less">
+.playContentPanel {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  .box {
-    width: auto;
+  & > .box {
+    width: 200%;
     white-space: nowrap;
     display: inline-flex;
     overflow: hidden;
     height: 100%;
+    transition: all 0.3s;
     & > div {
       height: 100%;
-      width: 100vw;
-      display: flex;
+      width: 100%;
+      overflow: hidden;
     }
-    &.spread {
-      display: flex;
+    &.left {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .playContentPanel {
+    & > .box {
+      width: 100% !important;
+      transform: translateX(0) !important;
       & > div {
-        transition: all 1s;
+        margin: 0 !important;
+        width: 50% !important;
       }
     }
   }

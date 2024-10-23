@@ -3,20 +3,22 @@
     <div class="header">
       <PlayerHeader v-model:active="activeType" @close="emit('close')" />
     </div>
-    <!-- <div class="content">
-      <div class="musicPanel">
-        <div class="songDisc">
-          <Disc :src="nowPlayData?.picUrl" :player-state="mediaParam.playState" />
+    <div class="contentPanel">
+      <Panel :active="activeType">
+        <div class="musicPanel">
+          <div class="songDisc">
+            <Disc :src="nowPlayData?.picUrl" :player-state="mediaParam.playState" />
+          </div>
         </div>
-      </div>
-      <div class="musicInfo">
-        <div class="name">
-          <span class="title ellipsis">{{ nowPlayData?.name || 'nomusic' }}</span>
-          <span class="arts">{{ nowPlayData?.song?.artists[0]?.name || '-' }}</span>
+        <div class="musicInfo">
+          <div class="name">
+            <span class="title ellipsis">{{ nowPlayData?.name || 'nomusic' }} </span>
+            <span class="arts">{{ nowPlayData?.song?.artists[0]?.name || '-' }}</span>
+          </div>
         </div>
-      </div>
-    </div> -->
-    <Panel :active="activeType" />
+      </Panel>
+    </div>
+
     <div class="footer">
       <ProgressBar
         :value="mediaParam.progress"
@@ -67,20 +69,16 @@ const activeType = ref(0)
   display: flex;
   flex-direction: column;
   color: #fff;
+
   .header {
     height: 50px;
     display: flex;
   }
-  .content {
+  .contentPanel {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
-    & > div {
-      flex: 1;
-    }
-
+    margin: 0 20px;
     .musicPanel {
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -96,6 +94,7 @@ const activeType = ref(0)
       }
     }
     .musicInfo {
+      overflow: hidden;
       .name {
         flex: 1;
         display: flex;
@@ -113,6 +112,7 @@ const activeType = ref(0)
       }
     }
   }
+
   .footer {
     height: 130px;
     display: flex;
