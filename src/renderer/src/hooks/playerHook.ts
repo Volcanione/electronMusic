@@ -30,7 +30,7 @@ export const PlayerHook = () => {
   const { nowPlayData } = storeToRefs(PlayerStore)
 
   //选择并播放
-  const checkMusicPlaying = async (data: MusicItem) => {
+  const checkMusicPlaying = async (data: MusicItem, openPlayer?: boolean) => {
     try {
       if (playerConfig.nowPlayId !== data.id) {
         const url = await getMusicUrl(data) //通过接口检查音乐可用后返回播放地址
@@ -47,7 +47,7 @@ export const PlayerHook = () => {
       addMusicToPlayerList(data)
       addMusicToPlayerHisList(data) //同时添加到历史列表
       //显示播放页
-      setPlayerShowState()
+      openPlayer && setPlayerShowState()
     } catch (error: any) {
       //
       console.log(error)

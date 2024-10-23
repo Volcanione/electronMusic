@@ -22,7 +22,7 @@
       <template #extra>
         <a href="#">更多</a>
       </template>
-      <div v-for="music in suggestedMusic" :key="music.id" @click="checkMusicPlaying(music)">
+      <div v-for="music in suggestedMusic" :key="music.id" @click="checkMusicPlaying(music, true)">
         {{ music.name }}
       </div>
     </Card>
