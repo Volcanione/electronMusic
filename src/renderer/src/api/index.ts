@@ -24,3 +24,9 @@ export function CheckMusic(data: any = {}) {
 export function MusicUrl(data: any = {}) {
   return request({ url: '/song/url/v1', method: 'post', data })
 }
+
+//获取歌词地址
+
+export function MusicLyric(data: any = {}) {
+  return request({ url: '/lyric', method: 'post', data })
+}

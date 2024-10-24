@@ -7,7 +7,7 @@
     :autofocus="false"
     :closable="false"
     force-render
-    :body-style="{ padding: 0, backfaceVisibility: 'hidden' }"
+    :body-style="{ padding: 0, backfaceVisibility: 'hidden', overflow: 'hidden' }"
     :mask-style="{ background: 'transparent', backfaceVisibility: 'hidden' }"
     @close="close"
   >

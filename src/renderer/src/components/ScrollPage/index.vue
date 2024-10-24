@@ -26,6 +26,7 @@ import BScroll from '@better-scroll/core'
 import PullDown from '@better-scroll/pull-down'
 import Pullup from '@better-scroll/pull-up'
 import ObserveDOM from '@better-scroll/observe-dom'
+import MouseWheel from '@better-scroll/mouse-wheel'
 import Down from './components/down/index.vue'
 import Up from './components/up/index.vue'
 import type { ScrollPageProps } from '@renderer/types/components'
@@ -36,6 +37,7 @@ import LoadingIcon from '@renderer/assets/puff.svg?url'
 BScroll.use(PullDown)
 BScroll.use(Pullup)
 BScroll.use(ObserveDOM)
+BScroll.use(MouseWheel)
 
 const props = withDefaults(defineProps<ScrollPageProps>(), {
   loading: undefined
@@ -70,10 +72,7 @@ const init: any = async (el: HTMLElement) => {
   Scroll = new BScroll(el, {
     observeDOM: true,
     probeType: props.probeType || 0,
-    mouseWheel: {
-      speed: 20,
-      easeTime: 300
-    },
+    mouseWheel: true,
     stopPropagation: true,
     bounce: { top: true, bottom: true, left: false, right: false },
     bounceTime: 400,

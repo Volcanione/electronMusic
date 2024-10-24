@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { reactive, computed, ref } from 'vue'
 import { findIndex } from 'lodash'
 import { useRandomArrayItem } from '@renderer/utils/index'
-import type { PlayerConfig } from 'player'
+import type { PlayerConfig, MusicLyric } from 'player'
 import type { MusicItem } from 'homeIndex'
 
 export const storePlayer = defineStore('player', () => {
@@ -11,6 +11,13 @@ export const storePlayer = defineStore('player', () => {
   console.log(MODELIST)
   const playerList = reactive([]) as Array<MusicItem> //播放列表
   const playerHisList = reactive([]) as Array<MusicItem> //已经播放过的列表
+
+  //歌曲歌词
+
+  const musicLyric = reactive({
+    Lyric: '', //原歌词
+    tLyric: '' //翻译歌词
+  }) as MusicLyric
 
   //列表是否存在添加歌曲
 
@@ -125,6 +132,12 @@ export const storePlayer = defineStore('player', () => {
     return playerList.find((item) => item.id === playerConfig.nowPlayId) as MusicItem
   })
 
+  //设置歌词
+
+  const setMusicLyric = async (data: MusicLyric) => {
+    Object.assign(musicLyric, data)
+  }
+
   return {
     playerConfig,
     addMusicToPlayerList,
@@ -137,6 +150,8 @@ export const storePlayer = defineStore('player', () => {
     prevMusic,
     addMusicToPlayerHisList,
     playerHisList,
-    nowPlayData
+    nowPlayData,
+    musicLyric,
+    setMusicLyric
   }
 })

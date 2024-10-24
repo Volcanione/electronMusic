@@ -11,6 +11,7 @@ export type ScrollPageProps = {
   pullUp?: (done: (state: -1 | 0 | 1 | 2) => void) => Promise<void>
   pullDown?: (done: () => void) => Promise<void>
   init?: (bs: BScroll) => void
+  mouseWheel?: boolean
 }
 
 export type ScrollBoxProps = {

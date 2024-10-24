@@ -9,11 +9,18 @@
           <div class="songDisc">
             <Disc :src="nowPlayData?.picUrl" :player-state="mediaParam.playState" />
           </div>
+          <div class="name">
+            <span class="title ellipsis">{{ nowPlayData?.name || 'nomusic' }} </span>
+            <span class="arts">{{ nowPlayData?.song?.artists[0]?.name || '-' }}</span>
+          </div>
         </div>
         <div class="musicInfo">
           <div class="name">
             <span class="title ellipsis">{{ nowPlayData?.name || 'nomusic' }} </span>
             <span class="arts">{{ nowPlayData?.song?.artists[0]?.name || '-' }}</span>
+          </div>
+          <div class="lyric">
+            <Lyric :key="nowPlayData?.id" :lyric="musicLyric" />
           </div>
         </div>
       </Panel>
@@ -47,9 +54,10 @@ import ProgressBar from './Progress.vue'
 import Controller from './controller.vue'
 import Disc from './components/disc.vue'
 import Panel from './components/panel.vue'
+import Lyric from './components/lyric.vue'
 import BgUrl from '@renderer/assets/bg.png?url'
 import { PlayerHook } from '@renderer/hooks/playerHook'
-const { mediaParam, changeProgress, nowPlayData } = PlayerHook()
+const { mediaParam, changeProgress, nowPlayData, musicLyric } = PlayerHook()
 
 const emit = defineEmits(['close'])
 
@@ -77,6 +85,7 @@ const activeType = ref(0)
   .contentPanel {
     flex: 1;
     margin: 0 20px;
+    overflow: hidden;
     .musicPanel {
       overflow: hidden;
       display: flex;
@@ -92,23 +101,36 @@ const activeType = ref(0)
         max-width: 320px;
         width: 80%;
       }
+      .name {
+        margin-bottom: 40px;
+      }
     }
     .musicInfo {
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
       .name {
+        opacity: 0;
+        position: absolute;
+      }
+      .lyric {
         flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         overflow: hidden;
+      }
+    }
+    .name {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      align-self: start;
+      transition: all 0.3s;
+      .title {
+        font-size: 20px;
+      }
 
-        .title {
-          font-size: 20px;
-        }
-
-        .arts {
-          font-size: 12px;
-        }
+      .arts {
+        font-size: 12px;
       }
     }
   }
@@ -142,14 +164,16 @@ const activeType = ref(0)
 }
 
 @media (min-width: 768px) {
-  .player {
-    .content {
-      flex-direction: row;
-      & > div {
-        flex: 1;
+  .contentPanel {
+    .musicPanel {
+      .name {
+        opacity: 0 !important;
       }
-      .musicInfo {
-        padding: 20px 0;
+    }
+    .musicInfo {
+      .name {
+        opacity: 1 !important;
+        position: relative !important;
       }
     }
   }

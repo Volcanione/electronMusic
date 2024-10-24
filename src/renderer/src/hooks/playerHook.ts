@@ -11,7 +11,7 @@ export const PlayerHook = () => {
   const { setAudioElementUrl, setAudioElementState, mediaParam, changeProgress } =
     AudioOperatorHook()
 
-  const { getMusicUrl } = MusicHook()
+  const { getMusicUrl, getMusicLyric } = MusicHook()
 
   //导入store
   const PlayerStore = storePlayer()
@@ -24,7 +24,9 @@ export const PlayerHook = () => {
     setPlayerShowState,
     nextMusic,
     prevMusic,
-    setPlayerMode
+    setPlayerMode,
+    setMusicLyric,
+    musicLyric
   } = PlayerStore
 
   const { nowPlayData } = storeToRefs(PlayerStore)
@@ -35,6 +37,8 @@ export const PlayerHook = () => {
       if (playerConfig.nowPlayId !== data.id) {
         const url = await getMusicUrl(data) //通过接口检查音乐可用后返回播放地址
         setAudioElementUrl(url) //设置播放器的url
+        const lyric = await getMusicLyric(data) //获取歌词
+        setMusicLyric(lyric)
         await playPause(true) //成功开始播放
       }
 
@@ -114,6 +118,7 @@ export const PlayerHook = () => {
     setPlayerMode,
     nextPlay,
     prevPlay,
-    nowPlayData
+    nowPlayData,
+    musicLyric
   }
 }

@@ -302,6 +302,13 @@
   dependencies:
     "@better-scroll/core" "^2.5.1"
 
+"@better-scroll/mouse-wheel@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.npmjs.org/@better-scroll/mouse-wheel/-/mouse-wheel-2.5.1.tgz#002d16264238122ecc7713c86eddc282ea52b79c"
+  integrity sha512-DGnrirRMY6zMM7xwgx09D/cA9A//3J1/uDkq8iBVEyE5p0sEr/keQpjEfFHGkBRa505BnbBwdbN6f5lugEDSPw==
+  dependencies:
+    "@better-scroll/core" "^2.5.1"
+
 "@better-scroll/observe-dom@^2.5.1":
   version "2.5.1"
   resolved "https://registry.npmjs.org/@better-scroll/observe-dom/-/observe-dom-2.5.1.tgz#7e69e46cba1a5b4aa36c498204e60379ac4191d8"

@@ -1,5 +1,5 @@
 import {} from 'vue'
-import { CheckMusic, MusicUrl } from '@renderer/api/index'
+import { CheckMusic, MusicUrl, MusicLyric } from '@renderer/api/index'
 import type { MusicItem } from 'homeIndex'
 
 export const MusicHook = () => {
@@ -19,5 +19,25 @@ export const MusicHook = () => {
       return Promise.reject(error)
     }
   }
-  return { getMusicUrl }
+
+  const getMusicLyric = async (param: MusicItem) => {
+    try {
+      const { lrc, tlyric } = await MusicLyric(param)
+      const Lyric = lrc?.lyric || ''
+      const tLyric = tlyric?.lyric || ''
+      //
+      return {
+        Lyric,
+        tLyric
+      }
+    } catch (error) {
+      //
+      return {
+        Lyric: '',
+        tLyric: ''
+      }
+    }
+  }
+
+  return { getMusicUrl, getMusicLyric }
 }
