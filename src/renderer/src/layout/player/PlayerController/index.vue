@@ -20,7 +20,7 @@
             <span class="arts">{{ nowPlayData?.song?.artists[0]?.name || '-' }}</span>
           </div>
           <div class="lyric">
-            <Lyric :key="nowPlayData?.id" :lyric="musicLyric" />
+            <Lyric :key="nowPlayData?.id" :lyric="musicLyric" @change-progress="changeProgress" />
           </div>
         </div>
       </Panel>
@@ -84,7 +84,7 @@ const activeType = ref(0)
   }
   .contentPanel {
     flex: 1;
-    margin: 0 20px;
+    // margin: 0 20px;
     overflow: hidden;
     .musicPanel {
       overflow: hidden;
@@ -112,10 +112,14 @@ const activeType = ref(0)
       .name {
         opacity: 0;
         position: absolute;
+        max-width: 500px;
       }
       .lyric {
         flex: 1;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
     }
     .name {
@@ -125,6 +129,8 @@ const activeType = ref(0)
       overflow: hidden;
       align-self: start;
       transition: all 0.3s;
+      width: 100%;
+      padding: 0 20px;
       .title {
         font-size: 20px;
       }
@@ -174,6 +180,10 @@ const activeType = ref(0)
       .name {
         opacity: 1 !important;
         position: relative !important;
+        padding-bottom: 10px;
+      }
+      .lyric {
+        align-items: self-start !important;
       }
     }
   }

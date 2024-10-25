@@ -5,7 +5,8 @@ import App from './App.vue'
 import components from '@renderer/components/'
 import router from '@renderer/router/index'
 import 'animate.css'
+import mixins from '@renderer/mixins/index'
 
 const pinia = createPinia()
 
-createApp(App).use(router).use(pinia).use(components).mount('#app')
+createApp(App).use(router).use(pinia).use(components).use(mixins).mount('#app')

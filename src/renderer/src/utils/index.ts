@@ -83,3 +83,31 @@ export function useRandomArrayItem<T>(initialArray: Ref<T[]>): RandomArrayItem<T
 }
 
 export default useRandomArrayItem
+
+export function findClosestObject<T>(
+  objects: Array<T>,
+  property: string,
+  targetValue: number,
+  limit?: number
+) {
+  if (!objects || objects.length === 0) {
+    return null // 返回 null 如果对象集合为空
+  }
+
+  let closestObject = objects[0] as T | undefined
+  let minDifference = Math.abs(objects[0][property] - targetValue)
+
+  for (let i = 1; i < objects.length; i++) {
+    const currentDifference = Math.abs(objects[i][property] - targetValue)
+    if (currentDifference < minDifference) {
+      if (limit && currentDifference > limit) {
+        closestObject = undefined
+      } else {
+        closestObject = objects[i]
+        minDifference = currentDifference
+      }
+    }
+  }
+
+  return closestObject
+}
