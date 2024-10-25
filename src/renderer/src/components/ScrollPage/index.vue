@@ -213,7 +213,7 @@ onMounted(async () => {
 .scrollPageCom {
   height: 100%;
   overflow: hidden;
-  :deep(.ant-spin-container) {
+  & > :deep(.ant-spin-container) {
     height: 100%;
     overflow: hidden;
   }
