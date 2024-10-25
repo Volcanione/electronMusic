@@ -9,7 +9,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, provide, onMounted } from 'vue'
+import { ref, provide } from 'vue'
 import MenuCom from './menu/index.vue'
 import HomeController from './player/HomeController/index.vue'
 import PlayerPage from './player/index.vue'
@@ -17,7 +17,6 @@ import PlayerPage from './player/index.vue'
 import { AudioHook } from '@renderer/hooks/audioHook'
 import { PlayerHook } from '@renderer/hooks/playerHook'
 import { AudioElementKey, MediaParamKey } from '@renderer/types/injectionKey'
-import { delay } from 'lodash'
 
 const { initAudio, audioElement, mediaParam } = AudioHook()
 const { playerConfig, setPlayerShowState } = PlayerHook()
@@ -44,12 +43,12 @@ const changeMenu = (item, oldActiveIndex, index) => {
   open.value = true
 }
 
-onMounted(() => {
-  setPlayerShowState(true)
-  delay(() => {
-    setPlayerShowState(false)
-  }, 1000)
-})
+// onMounted(() => {
+//   setPlayerShowState(true)
+//   delay(() => {
+//     setPlayerShowState(false)
+//   }, 1000)
+// })
 //
 const open = ref(false)
 </script>
