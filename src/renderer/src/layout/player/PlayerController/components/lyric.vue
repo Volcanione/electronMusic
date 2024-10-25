@@ -2,7 +2,7 @@
   <div class="lyricContent">
     <div v-if="showLyric.length" ref="timeBarRef" class="timeBar" :class="{ show: scrollState }">
       <div class="time" @click="checkProgress">
-        <i class="iconfont">&#xe646;</i> {{ $formatTime(choseItem.time, 'mm:ss', 'mm:ss') }}
+        <i class="iconfont">&#xe646;</i> {{ formatTime }}
       </div>
     </div>
     <ScrollPage :init="init" :probe-type="3">
@@ -73,11 +73,11 @@ const showLyric = computed(() => {
 
 //当前歌词
 const activeIdx = ref(0)
-const activeRef = reactive([]) as Array<HTMLElement> //
+const activeRef = ref<Array<HTMLElement>>([]) //
 const setIndex = async (time: number) => {
   const arr = showLyric.value
   activeIdx.value = NextTimeArray(time, arr)
-  const activeDom = activeRef[activeIdx.value]
+  const activeDom = activeRef.value[activeIdx.value]
 
   if (!activeDom || !Scroll || scrollState.value) {
     return
@@ -135,7 +135,7 @@ const choseItem = reactive({
 
 const scrollFn = () => {
   // console.log(dayjs('00:23:23', 'HH:mm:ss').format('mm:ss'))
-  const arr = activeRef.map((item, index) => {
+  const arr = activeRef.value.map((item, index) => {
     return {
       index,
       top: item.getBoundingClientRect().top,
@@ -144,6 +144,9 @@ const scrollFn = () => {
     }
   })
   Object.assign(choseItem, findClosestObject(arr, 'top', timeBarRefTop.value as number, 36))
+  console.log(choseItem)
+  console.log(arr)
+  console.log(timeBarRefTop.value)
 }
 watch(
   () => scrollState.value,
@@ -173,7 +176,6 @@ const checkProgress = () => {
     return
   }
   const timeArr = choseItem.time.split(':')
-  console.log(timeArr)
 
   const time = (+timeArr[0] as number) * 60 + +timeArr[1]
 
@@ -183,8 +185,13 @@ const checkProgress = () => {
   //跳转到对应的歌词
   activeIdx.value = choseItem.index
   setScrollState(false)
-  Scroll.scrollToElement(activeRef[choseItem.index], 300, 0, -150)
+  Scroll.scrollToElement(activeRef.value[choseItem.index], 300, 0, -150)
 }
+
+const formatTime = computed(() => {
+  const timeArr = choseItem.time.split(':')
+  return `${timeArr[0]}:${(+timeArr[1] as number).toFixed(0).padStart(2, '0')}`
+})
 </script>
 
 <style lang="less" scoped>
