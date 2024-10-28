@@ -26,7 +26,8 @@ export const PlayerHook = () => {
     prevMusic,
     setPlayerMode,
     setMusicLyric,
-    musicLyric
+    musicLyric,
+    setPlayerTranslateState
   } = PlayerStore
 
   const { nowPlayData } = storeToRefs(PlayerStore)
@@ -38,6 +39,7 @@ export const PlayerHook = () => {
         const url = await getMusicUrl(data) //通过接口检查音乐可用后返回播放地址
         setAudioElementUrl(url) //设置播放器的url
         const lyric = await getMusicLyric(data) //获取歌词
+        setPlayerTranslateState(false) //重置翻译状态
         setMusicLyric(lyric)
         await playPause(true) //成功开始播放
       }
@@ -119,6 +121,7 @@ export const PlayerHook = () => {
     nextPlay,
     prevPlay,
     nowPlayData,
-    musicLyric
+    musicLyric,
+    setPlayerTranslateState
   }
 }

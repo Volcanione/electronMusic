@@ -7,16 +7,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onBeforeMount } from 'vue'
-
 defineProps<{
   widescreen?: boolean
   active: number
 }>()
-
-onMounted(() => {})
-
-onBeforeMount(() => {})
 </script>
 
 <style lang="less">

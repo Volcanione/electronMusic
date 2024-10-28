@@ -1,6 +1,6 @@
 <template>
   <div :ref="discBoxRef" class="discBox">
-    <canvas v-if="vudio && showSrc" id="canvasRef" width="350" height="350"></canvas>
+    <!-- <canvas v-if="vudio && showSrc" id="canvasRef" width="350" height="350"></canvas> -->
     <div class="disc" :style="{ 'animation-play-state': playerState ? 'running' : 'paused' }">
       <span class="border"></span>
       <img :src="!showSrc ? defaultImg : showSrc + `?param=${size}y${size}`" alt="" />

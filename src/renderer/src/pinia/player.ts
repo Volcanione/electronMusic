@@ -6,7 +6,11 @@ import type { PlayerConfig, MusicLyric } from 'player'
 import type { MusicItem } from 'homeIndex'
 
 export const storePlayer = defineStore('player', () => {
-  const playerConfig: PlayerConfig = reactive({ playerShow: false, playerMode: 'list' }) //播放器配置
+  const playerConfig: PlayerConfig = reactive({
+    playerShow: false,
+    playerMode: 'list',
+    translateState: false
+  }) //播放器配置
   const MODELIST: Array<PlayerConfig['playerMode']> = ['alone', 'list', 'random'] //播放模式
   console.log(MODELIST)
   const playerList = reactive([]) as Array<MusicItem> //播放列表
@@ -74,6 +78,14 @@ export const storePlayer = defineStore('player', () => {
 
     Object.assign(playerConfig, {
       playerMode: MODELIST[idx < MODELIST.length - 1 ? idx + 1 : 0]
+    })
+  }
+
+  //设置翻译歌词
+
+  const setPlayerTranslateState = (translateState: boolean) => {
+    Object.assign(playerConfig, {
+      translateState
     })
   }
 
@@ -152,6 +164,7 @@ export const storePlayer = defineStore('player', () => {
     playerHisList,
     nowPlayData,
     musicLyric,
-    setMusicLyric
+    setMusicLyric,
+    setPlayerTranslateState
   }
 })

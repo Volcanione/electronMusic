@@ -13,6 +13,9 @@
             <span class="title ellipsis">{{ nowPlayData?.name || 'nomusic' }} </span>
             <span class="arts">{{ nowPlayData?.song?.artists[0]?.name || '-' }}</span>
           </div>
+          <div class="lineLyric">
+            <Lyric :key="nowPlayData?.id" :lyric="musicLyric" line />
+          </div>
         </div>
         <div class="musicInfo">
           <div class="name">
@@ -102,6 +105,9 @@ const activeType = ref(0)
         width: 80%;
       }
       .name {
+        margin-bottom: 20px;
+      }
+      .lineLyric {
         margin-bottom: 40px;
       }
     }
@@ -109,6 +115,7 @@ const activeType = ref(0)
       overflow: hidden;
       display: flex;
       flex-direction: column;
+
       .name {
         opacity: 0;
         position: absolute;
@@ -138,6 +145,12 @@ const activeType = ref(0)
       .arts {
         font-size: 12px;
       }
+    }
+    .lineLyric {
+      width: 100%;
+      padding: 0 20px;
+      transition: all 0.3s;
+      max-height: 56px;
     }
   }
 
@@ -172,7 +185,8 @@ const activeType = ref(0)
 @media (min-width: 768px) {
   .contentPanel {
     .musicPanel {
-      .name {
+      .name,
+      .lineLyric {
         opacity: 0 !important;
       }
     }

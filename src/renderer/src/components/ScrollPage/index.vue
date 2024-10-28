@@ -21,7 +21,7 @@
 </template>
 
 <script lang="tsx" setup>
-import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import BScroll from '@better-scroll/core'
 import PullDown from '@better-scroll/pull-down'
 import Pullup from '@better-scroll/pull-up'
@@ -79,6 +79,8 @@ const init: any = async (el: HTMLElement) => {
     click: true,
     ...Config
   })
+
+  setScrollState()
 
   resizeObserver.observe(contentRef.value as Element)
   resizeObserver.observe(el)
@@ -207,6 +209,24 @@ onBeforeUnmount(() => {
 onMounted(async () => {
   init(scrollRef.value)
 })
+
+const setScrollState = () => {
+  if (props.disabled) {
+    Scroll.disable()
+  } else {
+    Scroll.enable()
+  }
+}
+
+watch(
+  () => props.disabled,
+  () => {
+    if (!Scroll) {
+      return
+    }
+    setScrollState()
+  }
+)
 </script>
 
 <style lang="less" scoped>

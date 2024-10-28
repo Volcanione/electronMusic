@@ -1,11 +1,11 @@
 <template>
-  <div class="lyricContent">
+  <div class="lyricContent" :class="{ line: line }">
     <div v-if="showLyric.length" ref="timeBarRef" class="timeBar" :class="{ show: scrollState }">
       <div class="time" @click="checkProgress">
         <i class="iconfont">&#xe646;</i> {{ formatTime }}
       </div>
     </div>
-    <ScrollPage :init="init" :probe-type="3">
+    <ScrollPage :init="init" :probe-type="3" :loading="false" :disabled="line">
       <div
         v-for="(item, index) in showLyric"
         :key="item.time"
@@ -19,7 +19,12 @@
       <div class="empty item">暂无歌词</div>
     </ScrollPage>
     <div class="btns">
-      <div v-if="lyric.tLyric" class="btn" :class="{ active: translateState }" @click="checkState">
+      <div
+        v-if="lyric.tLyric"
+        class="btn"
+        :class="{ active: playerConfig.translateState }"
+        @click="checkState"
+      >
         <span>译</span>
       </div>
     </div>
@@ -27,13 +32,13 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, reactive, computed, inject, watchEffect, nextTick } from 'vue'
+import { watch, ref, reactive, computed, watchEffect, nextTick } from 'vue'
 import type { MusicLyric } from 'player'
 import { lyricRegular, NextTimeArray } from '@renderer/utils/player'
 import BScroll from '@better-scroll/core'
-import { MediaParamKey } from '@renderer/types/injectionKey'
 import { delay } from 'lodash'
 import { findClosestObject } from '@renderer/utils/index'
+import { PlayerHook } from '@renderer/hooks/playerHook'
 
 type LyricItem = {
   lyricText: string
@@ -42,12 +47,15 @@ type LyricItem = {
 
 const props = defineProps<{
   lyric: MusicLyric
+  line?: boolean
 }>()
 
 const emit = defineEmits(['changeProgress'])
 
-// console.log(props.lyric.Lyric)
-const mediaParam = inject(MediaParamKey, reactive({ currentTime: 0, duration: 0 }))
+const { mediaParam, setPlayerTranslateState, playerConfig } = PlayerHook()
+
+// // console.log(props.lyric.Lyric)
+// const mediaParam = inject(MediaParamKey, reactive({ currentTime: 0, duration: 0 }))
 
 const rLyric = reactive([]) as Array<LyricItem> //原歌词
 const tLyric = reactive([]) as Array<LyricItem> //翻译歌词
@@ -61,14 +69,13 @@ const delLryic = () => {
 }
 
 //翻译状态
-const translateState = ref(false)
 const checkState = () => {
-  translateState.value = !translateState.value
+  setPlayerTranslateState(!playerConfig.translateState)
 }
 
 //显示歌词
 const showLyric = computed(() => {
-  return !translateState.value ? rLyric : tLyric
+  return !playerConfig.translateState ? rLyric : tLyric
 })
 
 //当前歌词
@@ -221,6 +228,7 @@ const formatTime = computed(() => {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    padding: 0 20px;
     .btn {
       display: flex;
       align-items: center;
@@ -288,6 +296,31 @@ const formatTime = computed(() => {
         opacity: 1;
       }
     }
+  }
+}
+
+.line {
+  max-width: none !important;
+  flex-direction: row !important;
+  align-items: baseline;
+  :deep(.scrollPage) {
+    min-height: auto !important;
+    max-height: 56px !important;
+    overflow: hidden;
+  }
+  .item {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: left !important;
+  }
+  .item:not(.active) {
+    display: none;
+  }
+  .btns {
+    height: auto;
+    margin-left: auto;
+    margin-right: 0;
+    padding-right: 0;
   }
 }
 
