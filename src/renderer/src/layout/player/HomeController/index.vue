@@ -7,7 +7,15 @@
       class="disc"
       @click="setPlayerShowState()"
     />
-    <Lyric :key="nowPlayData?.id" :lyric="musicLyric" line class="lyric" />
+    <transition name="fade">
+      <Lyric
+        v-if="!playerConfig.playerShow"
+        :key="nowPlayData?.id"
+        :lyric="musicLyric"
+        line
+        class="lyric"
+      />
+    </transition>
     <PlayProgress :play-state="mediaParam.playState" :progress="mediaParam.progress" @play="play" />
   </div>
 </template>
@@ -17,7 +25,8 @@ import Disc from '../PlayerController/components/disc.vue'
 import Lyric from '../PlayerController/components/lyric.vue'
 import PlayProgress from './components/playProgress.vue'
 import { PlayerHook } from '@renderer/hooks/playerHook'
-const { mediaParam, playPause, setPlayerShowState, nowPlayData, musicLyric } = PlayerHook()
+const { mediaParam, playPause, setPlayerShowState, nowPlayData, musicLyric, playerConfig } =
+  PlayerHook()
 
 const play = async () => {
   try {

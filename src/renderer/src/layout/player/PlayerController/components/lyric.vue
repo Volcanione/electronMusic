@@ -1,6 +1,11 @@
 <template>
   <div class="lyricContent" :class="{ line: line }">
-    <div v-if="showLyric.length" ref="timeBarRef" class="timeBar" :class="{ show: scrollState }">
+    <div
+      v-if="showLyric.length && !line"
+      ref="timeBarRef"
+      class="timeBar"
+      :class="{ show: scrollState }"
+    >
       <div class="time" @click="checkProgress">
         <i class="iconfont">&#xe646;</i> {{ formatTime }}
       </div>

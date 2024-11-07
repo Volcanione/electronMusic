@@ -14,7 +14,9 @@
             <span class="arts">{{ nowPlayData?.song?.artists[0]?.name || '-' }}</span>
           </div>
           <div class="lineLyric">
-            <Lyric :key="nowPlayData?.id" :lyric="musicLyric" line />
+            <transition name="fade">
+              <Lyric v-if="!activeType" :key="nowPlayData?.id" :lyric="musicLyric" line />
+            </transition>
           </div>
         </div>
         <div class="musicInfo">
@@ -108,6 +110,7 @@ const activeType = ref(0)
         margin-bottom: 20px;
       }
       .lineLyric {
+        min-height: 56px;
         margin-bottom: 40px;
       }
     }
