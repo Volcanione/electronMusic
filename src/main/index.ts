@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
 function createWindow(): void {
+  console.log(process.platform)
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
@@ -14,7 +15,7 @@ function createWindow(): void {
     maxHeight: 1080,
     show: false,
     autoHideMenuBar: true,
-    titleBarStyle: 'hidden',
+    titleBarStyle: process.platform === 'darwin' ? 'default' : 'hidden',
     backgroundColor: '#00000000',
     transparent: true,
     frame: false,
