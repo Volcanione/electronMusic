@@ -105,6 +105,7 @@ const activeType = ref(0)
         justify-content: center;
         max-width: 320px;
         width: 80%;
+        transform: translateY(0);
       }
       .name {
         margin-bottom: 20px;
@@ -191,6 +192,9 @@ const activeType = ref(0)
       .name,
       .lineLyric {
         opacity: 0 !important;
+      }
+      .songDisc {
+        transform: translateY(73px) !important;
       }
     }
     .musicInfo {

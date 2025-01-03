@@ -7,7 +7,7 @@ import type { MusicItem } from 'homeIndex'
 
 export const storePlayer = defineStore('player', () => {
   const playerConfig: PlayerConfig = reactive({
-    playerShow: false,
+    playerShow: true,
     playerMode: 'list',
     translateState: false
   }) //播放器配置

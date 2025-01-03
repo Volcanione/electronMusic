@@ -21,7 +21,7 @@
       >
         {{ item.lyricText || '••••••' }}
       </div>
-      <div class="empty item">暂无歌词</div>
+      <div v-if="!showLyric.length" class="empty item">暂无歌词</div>
     </ScrollPage>
     <div class="btns">
       <div
