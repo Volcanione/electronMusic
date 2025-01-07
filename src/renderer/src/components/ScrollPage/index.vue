@@ -31,7 +31,7 @@ import Down from './components/down/index.vue'
 import Up from './components/up/index.vue'
 import type { ScrollPageProps } from '@renderer/types/components'
 import { Spin } from 'ant-design-vue'
-
+import { PlayerHook } from '@renderer/hooks/playerHook'
 import LoadingIcon from '@renderer/assets/puff.svg?url'
 
 BScroll.use(PullDown)
@@ -42,6 +42,8 @@ BScroll.use(MouseWheel)
 const props = withDefaults(defineProps<ScrollPageProps>(), {
   loading: undefined
 })
+
+const { playerConfig } = PlayerHook()
 
 let Scroll: BScroll
 
@@ -106,6 +108,9 @@ const init: any = async (el: HTMLElement) => {
     //
   }
   initLoading.value = false
+
+  //
+  playerConfig.initBs && playerConfig.initBs(Scroll)
 }
 
 //

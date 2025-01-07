@@ -29,6 +29,8 @@
   --color-background-mute: var(--ev-c-black-mute);
 
   --color-text: var(--ev-c-text-1);
+
+  --animate-duration: 300ms;
 }
 
 *,
@@ -219,3 +221,13 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  /* 限制显示2行 */
+  overflow: hidden;
+
+}
+

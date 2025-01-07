@@ -7,6 +7,8 @@
       :fallback="songItemBg"
       :preview="false"
     />
+    <span class="name ellipsis-2">{{ name }}</span>
+    <span class="tag"> 歌单</span>
   </div>
 </template>
 
@@ -38,8 +40,30 @@ const size = computed(() => {
   border-radius: @border-radius-base;
   background: #fafafa;
   overflow: hidden;
+  position: relative;
   :deep(img) {
     object-fit: cover;
+  }
+  .name {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    padding: 0 6px;
+    width: 100%;
+    font-size: 12px;
+    color: #fff;
+    line-height: 16px;
+    text-wrap: wrap;
+  }
+  .tag {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font-size: 12px;
+    color: #fff;
+    padding: 0 6px;
   }
 }
 </style>

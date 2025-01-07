@@ -1,10 +1,10 @@
+import 'animate.css'
 import './styles/base.less'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import App from './App.vue'
 import components from '@renderer/components/'
 import router from '@renderer/router/index'
-import 'animate.css'
 import mixins from '@renderer/mixins/index'
 
 const pinia = createPinia()

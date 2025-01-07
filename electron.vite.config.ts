@@ -8,6 +8,8 @@ import svgLoader from 'vite-svg-loader'
 import json5Plugin from 'vite-plugin-json5'
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig(({ mode }) => {
   console.log(mode)
@@ -47,11 +49,15 @@ export default defineConfig(({ mode }) => {
         dsv(),
         svgLoader(),
         json5Plugin(),
+        AutoImport({
+          resolvers: [ElementPlusResolver()]
+        }),
         Components({
           resolvers: [
             AntDesignVueResolver({
               importStyle: false // css in js
-            })
+            }),
+            ElementPlusResolver()
           ]
         })
       ],

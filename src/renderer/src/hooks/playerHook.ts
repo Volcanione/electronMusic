@@ -27,7 +27,8 @@ export const PlayerHook = () => {
     setPlayerMode,
     setMusicLyric,
     musicLyric,
-    setPlayerTranslateState
+    setPlayerTranslateState,
+    setHomeControllerShowState
   } = PlayerStore
 
   const { nowPlayData } = storeToRefs(PlayerStore)
@@ -122,6 +123,7 @@ export const PlayerHook = () => {
     prevPlay,
     nowPlayData,
     musicLyric,
-    setPlayerTranslateState
+    setPlayerTranslateState,
+    setHomeControllerShowState
   }
 }

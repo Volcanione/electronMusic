@@ -5,6 +5,7 @@ import ScrollPage from './ScrollPage/index.vue'
 import ScrollBox from './ScrollBox/index.vue'
 import Slide from './Slide/index.vue'
 import SongItem from './SongItem/index.vue'
+import MusicItem from './MusicItem/index.vue'
 
 export default function install(app: App) {
   app.component('Tabbar', Tabbar)
@@ -13,4 +14,5 @@ export default function install(app: App) {
   app.component('ScrollBox', ScrollBox)
   app.component('Slide', Slide)
   app.component('SongItem', SongItem)
+  app.component('MusicItem', MusicItem)
 }

@@ -7,12 +7,19 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./src/components/SongItem/index copy.vue')['default']
     Down: typeof import('./src/components/ScrollPage/components/down/index.vue')['default']
+    ElCol: typeof import('element-plus/es')['ElCol']
+    ElRow: typeof import('element-plus/es')['ElRow']
+    ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
+    ElSkeletonItem: typeof import('element-plus/es')['ElSkeletonItem']
+    MusicItem: typeof import('./src/components/MusicItem/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     RouterViewContent: typeof import('./src/components/RouterViewContent/index.vue')['default']
     ScrollBox: typeof import('./src/components/ScrollBox/index.vue')['default']
     ScrollPage: typeof import('./src/components/ScrollPage/index.vue')['default']
+    Skeleton: typeof import('./src/components/MusicItem/skeleton.vue')['default']
     Slide: typeof import('./src/components/Slide/index.vue')['default']
     SongItem: typeof import('./src/components/SongItem/index.vue')['default']
     Tabbar: typeof import('./src/components/Tabbar/index.vue')['default']
