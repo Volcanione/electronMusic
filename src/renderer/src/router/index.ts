@@ -1,6 +1,6 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, RouteRecordRaw, createWebHistory } from 'vue-router'
 
-export const constantRoutes = [
+export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     redirect: '/index'
@@ -37,11 +37,36 @@ export const constantRoutes = [
     components: {
       home: () => import('@renderer/views/home/radio/index.vue')
     }
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    components: {
+      layer: () => import('@renderer/views/layer/search/index.vue')
+    }
+  },
+  {
+    path: '/search/:value',
+    name: 'SearchResult',
+    components: {
+      layer: () => import('@renderer/views/layer/search/result.vue')
+    }
   }
 ]
 
 const router = createRouter({
-  history: createWebHashHistory('/'),
+  history: createWebHistory('/'),
   routes: constantRoutes
 })
+
+// 路由守卫
+// router.beforeEach((to, from, next) => {
+//   console.log(to)
+//   console.log(from)
+//   if (from.path !== '/') {
+//     return next()
+//   }
+//   next('/index')
+// })
+
 export default router

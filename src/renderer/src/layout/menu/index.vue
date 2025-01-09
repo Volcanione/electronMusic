@@ -9,7 +9,7 @@
         <div v-if="item.value === 'my'" :class="item.value"></div>
       </template>
 </template> -->
-    <div class="item">
+    <div class="item" @click="$router.push('/search/test')">
       <i class="iconfont">&#xe78b;</i>
     </div>
     <div class="Tabbar">
@@ -19,12 +19,12 @@
         @change="(item, oldActiveIndex, index) => $emit('change', item, oldActiveIndex, index)"
       />
     </div>
-    <div class="item">
+    <div class="item" @click="$router.push('/search')">
       <i class="iconfont">&#xe6e4;</i>
     </div>
   </div>
   <div class="menu menuLeft">
-    <div class="item back">
+    <div class="item back" @click="$router.back()">
       <i class="iconfont">&#xe603;</i>
     </div>
     <template v-for="(item, index) in menuList" :key="item.label">
@@ -57,7 +57,7 @@ const menuLeftBg = ref('#ffffff')
 
 //
 
-const topMenuList = constantRoutes
+const topMenuList: any = constantRoutes
   .filter((item) => {
     return item.components && item.components['home']
   })

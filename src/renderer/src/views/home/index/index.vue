@@ -4,6 +4,7 @@
       <Slide :data="bannerList" class="banner mb20" />
       <Card style="flex: 1" class="mlr20 mb20" title="推荐歌单" size="small">
         <template #extra>
+          <a href="javascript:void(0)" @click="$router.push('/search')">更多</a> |
           <a href="#">更多</a>
         </template>
         <ScrollBox :reload="reloadSongList">

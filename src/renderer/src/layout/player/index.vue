@@ -8,7 +8,7 @@
     :closable="false"
     force-render
     :body-style="{ padding: 0, backfaceVisibility: 'hidden', overflow: 'hidden' }"
-    :mask-style="{ background: 'transparent', backfaceVisibility: 'hidden' }"
+    :mask-style="{ background: 'transparent', backfaceVisibility: 'hidden', zIndex: 999 }"
     @close="close"
   >
     <!-- <div style="background: red" @click="close">1</div> -->

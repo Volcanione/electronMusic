@@ -2,24 +2,26 @@
   <div class="layout">
     <MenuCom @change="changeMenu" />
     <div class="layoutContent">
-      <RouterViewContent :reverse="reverseState" />
+      <RouterViewContent :reverse="reverseState" :disabled="disabled" />
       <HomeController />
     </div>
-    <PlayerPage :open="playerConfig.playerShow" @close="setPlayerShowState(false)" />
+    <!-- <PlayerPage :open="playerConfig.playerShow" @close="setPlayerShowState(false)" /> -->
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, provide } from 'vue'
+import { ref, provide, watch } from 'vue'
 import MenuCom from './menu/index.vue'
 import HomeController from './player/HomeController/index.vue'
-import PlayerPage from './player/index.vue'
+// import PlayerPage from './player/index.vue'
+import { PageRouteConfig } from '@renderer/utils/index'
 
 import { AudioHook } from '@renderer/hooks/audioHook'
-import { PlayerHook } from '@renderer/hooks/playerHook'
+// import { PlayerHook } from '@renderer/hooks/playerHook'
 import { AudioElementKey, MediaParamKey } from '@renderer/types/injectionKey'
 
 const { initAudio, audioElement, mediaParam } = AudioHook()
-const { playerConfig, setPlayerShowState } = PlayerHook()
+// const { playerConfig, setPlayerShowState } = PlayerHook()
+const { route, router } = PageRouteConfig()
 
 //
 
@@ -49,8 +51,21 @@ const changeMenu = (item, oldActiveIndex, index) => {
 //     setPlayerShowState(false)
 //   }, 1000)
 // })
+
 //
 const open = ref(false)
+
+const disabled = ref(false)
+watch(
+  () => route.name,
+  (to, from) => {
+    const routes = router.getRoutes()
+    const toRouter = routes.find((item) => item.components?.layer && to === item.name)
+    const fromRoute = routes.find((item) => item.components?.layer && from === item.name)
+
+    disabled.value = Boolean(toRouter?.components?.layer || fromRoute?.components?.layer)
+  }
+)
 </script>
 <style lang="less" scoped>
 .layout {
@@ -77,4 +92,3 @@ const open = ref(false)
   }
 }
 </style>
-: any: number: number

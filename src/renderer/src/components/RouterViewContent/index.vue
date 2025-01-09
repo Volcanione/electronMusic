@@ -51,10 +51,10 @@ const toStyle = reactive({
 
 //计算属性
 const X = computed(() => {
-  return props.reverse ? '-100%' : '100%'
+  return props.disabled ? 0 : props.reverse ? '-100%' : '100%'
 })
 const Left = computed(() => {
-  return !props.reverse ? '-100%' : '100%'
+  return props.disabled ? 0 : !props.reverse ? '-100%' : '100%'
 })
 
 //方法
