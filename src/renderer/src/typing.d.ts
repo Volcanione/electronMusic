@@ -5,5 +5,6 @@ declare module 'vue' {
  export interface ComponentCustomProperties {
     $formatDate: (time: string, rule: string, format: string) => string
     $formatTime: (time: string, format?: string) => string
+    $routerBack: (path?: string) => void
   }
 }

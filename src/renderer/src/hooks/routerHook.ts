@@ -1,10 +1,14 @@
 import { storeRouter } from '@renderer/pinia/router'
+import { PageRouteConfig } from '@renderer/utils/index'
 
 export const RouterHook = () => {
-  const { historyRoute, addHistoryRoute, removeHistoryRoute } = storeRouter()
+  const { router } = PageRouteConfig()
+  const { historyRoute, addHistoryRoute, removeHistoryRoute, routerBack } = storeRouter()
+
   return {
     historyRoute,
     addHistoryRoute,
-    removeHistoryRoute
+    removeHistoryRoute,
+    routerBack
   }
 }

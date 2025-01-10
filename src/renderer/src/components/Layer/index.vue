@@ -3,7 +3,7 @@
     <div v-show="visible" class="Layer">
       <router-view v-slot="{ Component }" name="layer">
         <transition :css="false" @before-enter="beforeEnter" @enter="enter" @leave="leave">
-          <component :is="Component" class="layerRouteView" />
+          <component :is="Component" :key="route.fullPath + '_layer'" class="layerRouteView" />
         </transition>
       </router-view>
     </div>

@@ -107,14 +107,15 @@ playerConfig.initBs = (Bs) => {
 
 @media (max-width: 576px) {
   .homeController {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background: rgba(255, 255, 255, 0.8);
+    z-index: 999;
     &::before {
       content: '';
       width: 100%;
       height: 100%;
-      position: absolute;
+      position: fixed;
       left: 0;
       top: 0;
       background: inherit;
