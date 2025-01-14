@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, inject, watchEffect } from 'vue'
 import Disc from '../PlayerController/components/disc.vue'
 import Lyric from '../PlayerController/components/lyric.vue'
 import PlayProgress from './components/playProgress.vue'
@@ -44,6 +44,8 @@ const {
   playerConfig,
   setHomeControllerShowState
 } = PlayerHook()
+
+const AppGlobalConfig = inject('AppGlobalConfig', { pcMode: false })
 
 const play = async () => {
   try {
@@ -68,6 +70,10 @@ playerConfig.initBs = (Bs) => {
     }
   })
 }
+
+watchEffect(() => {
+  setHomeControllerShowState(AppGlobalConfig.pcMode)
+})
 </script>
 
 <style lang="less" scoped>

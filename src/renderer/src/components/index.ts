@@ -8,6 +8,7 @@ import SongItem from './SongItem/index.vue'
 import MusicItem from './MusicItem/index.vue'
 import LayerPage from './LayerPage/index.vue'
 import Portal from './Portal/index.vue'
+import NavBar from './NavBar/index.vue'
 
 export default function install(app: App) {
   app.component('Tabbar', Tabbar)
@@ -19,4 +20,5 @@ export default function install(app: App) {
   app.component('MusicItem', MusicItem)
   app.component('LayerPage', LayerPage)
   app.component('Portal', Portal)
+  app.component('NavBar', NavBar)
 }

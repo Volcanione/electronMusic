@@ -15,6 +15,8 @@ declare module 'vue' {
     Layer: typeof import('./src/components/Layer/index.vue')['default']
     LayerPage: typeof import('./src/components/LayerPage/index.vue')['default']
     MusicItem: typeof import('./src/components/MusicItem/index.vue')['default']
+    Nav: typeof import('./src/components/Nav/index.vue')['default']
+    NavBar: typeof import('./src/components/NavBar/index.vue')['default']
     Portal: typeof import('./src/components/Portal/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

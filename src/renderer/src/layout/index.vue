@@ -1,26 +1,30 @@
 <template>
-  <div class="layout">
+  <div id="APPlayout" class="layout">
     <MenuCom @change="changeMenu" />
-    <div class="layoutContent">
-      <RouterViewContent :reverse="reverseState" :disabled="disabled" />
+    <PlayerPage :open="playerConfig.playerShow" @close="setPlayerShowState(false)" />
+    <Layer />
+    <Portal :to="AppGlobalConfig.pcMode ? '#layoutContent' : '#APPlayout'">
       <HomeController />
+    </Portal>
+    <div id="layoutContent" class="layoutContent">
+      <RouterViewContent :reverse="reverseState" :disabled="disabled" />
+      <!-- <HomeController /> -->
     </div>
-    <!-- <PlayerPage :open="playerConfig.playerShow" @close="setPlayerShowState(false)" /> -->
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, provide, watch } from 'vue'
+import { ref, provide, watch, inject } from 'vue'
 import MenuCom from './menu/index.vue'
 import HomeController from './player/HomeController/index.vue'
-// import PlayerPage from './player/index.vue'
 import { PageRouteConfig } from '@renderer/utils/index'
-
+import PlayerPage from '@renderer/layout/player/index.vue'
+import Layer from '@renderer/components/Layer/index.vue'
+import { PlayerHook } from '@renderer/hooks/playerHook'
 import { AudioHook } from '@renderer/hooks/audioHook'
-// import { PlayerHook } from '@renderer/hooks/playerHook'
 import { AudioElementKey, MediaParamKey } from '@renderer/types/injectionKey'
 
 const { initAudio, audioElement, mediaParam } = AudioHook()
-// const { playerConfig, setPlayerShowState } = PlayerHook()
+const { playerConfig, setPlayerShowState } = PlayerHook()
 const { route, router } = PageRouteConfig()
 
 //
@@ -30,6 +34,7 @@ initAudio()
 provide(AudioElementKey, audioElement)
 provide(MediaParamKey, mediaParam)
 
+const AppGlobalConfig = inject('AppGlobalConfig', { pcMode: false })
 //
 
 const layoutBg = ref('#f5f5f5')

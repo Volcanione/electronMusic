@@ -1,22 +1,18 @@
 <template>
   <ConfigProvider :theme="themeConfig">
-    <App>
-      <Layer />
-      <PlayerPage :open="playerConfig.playerShow" @close="setPlayerShowState(false)" />
+    <App ref="APPlayoutRef" class="APPlayout">
       <Layout />
     </App>
   </ConfigProvider>
 </template>
 <script lang="tsx" setup>
-import { watch } from 'vue'
+import { watch, ref, onMounted, reactive, provide } from 'vue'
 import { App, ConfigProvider } from 'ant-design-vue'
 import Layout from '@renderer/layout/index.vue'
-import Layer from '@renderer/components/Layer/index.vue'
-// import LoadingIcon from '@renderer/assets/puff.svg?url'
+
 import { RouterHook } from '@renderer/hooks/routerHook'
 import { PageRouteConfig } from '@renderer/utils/index'
-import PlayerPage from '@renderer/layout/player/index.vue'
-import { PlayerHook } from '@renderer/hooks/playerHook'
+
 //主题样式配置
 const themeConfig = {
   components: {
@@ -28,24 +24,6 @@ const themeConfig = {
 }
 
 //
-const { playerConfig, setPlayerShowState } = PlayerHook()
-
-// const indicator = (
-//   <img
-//     src={LoadingIcon}
-//     style={{
-//       width: '4rem',
-//       height: '4rem',
-//       margin: 0,
-//       transform: 'translate(-50%,-50%)'
-//     }}
-//   />
-// )
-
-// const spinning = ref(true)
-// setTimeout(() => {
-//   spinning.value = false
-// }, 2000)
 
 const { route, router } = PageRouteConfig()
 const { addHistoryRoute, removeHistoryRoute } = RouterHook()
@@ -56,10 +34,6 @@ router.replace('/')
 watch(
   () => route.fullPath,
   () => {
-    // console.log(route)
-    // console.log(window.history.state)
-    // console.log(window.history.state.forward)
-    // console.log(historyRoute)
     if (!window.history.state.replaced && !window.history.state.forward) {
       addHistoryRoute(route)
     }
@@ -71,6 +45,32 @@ watch(
     // console.log(historyRoute.map((item) => item.fullPath))
   }
 )
+
+// 配置观察选项
+const APPlayoutRef = ref()
+
+const AppGlobalConfig = reactive({
+  pcMode: false
+})
+
+// 创建一个回调函数来执行当变动发生时的操作
+const callback = function (entries) {
+  for (const entry of entries) {
+    Object.assign(AppGlobalConfig, {
+      pcMode: entry.contentRect.width > 576
+    })
+  }
+}
+
+// 创建一个观察者实例并传入回调
+const observer = new ResizeObserver(callback)
+
+// 启动观察
+onMounted(() => {
+  observer.observe(APPlayoutRef.value.$el)
+})
+
+provide('AppGlobalConfig', AppGlobalConfig)
 </script>
 
 <style lang="less" scoped>
@@ -89,4 +89,12 @@ watch(
 //     }
 //   }
 // }
+.APPlayout {
+}
+
+@media (max-width: 576px) {
+  .APPlayout {
+    position: relative;
+  }
+}
 </style>

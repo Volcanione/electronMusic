@@ -1,7 +1,7 @@
 <template>
   <LayerPage>
     <template #header>
-      <div>1</div>
+      <NavBar />
     </template>
     22
     <!-- <span @click="$router.push('/search/test')">search</span> -->
