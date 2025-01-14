@@ -76,7 +76,9 @@ const handlerBack = () => {
     justify-content: center;
     cursor: pointer;
   }
-
+  .left {
+    display: none;
+  }
   .content {
     flex: 1;
     display: flex;
@@ -108,6 +110,12 @@ const handlerBack = () => {
     color: #333;
     background: transparent;
     overflow: hidden;
+  }
+}
+
+@media (max-width: 576px) {
+  .left {
+    display: flex !important;
   }
 }
 </style>
