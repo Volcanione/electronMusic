@@ -1,8 +1,46 @@
 <template>
   <LayerPage>
     <template #header>
-      <NavBar />
+      <NavBar>
+        <a-input placeholder="搜索">
+          <template #prefix> <img :src="searchIcon" class="searchIcon" /> </template>
+        </a-input>
+      </NavBar>
     </template>
-    <span @click="$router.push('/search/test')">search</span>
+
+    <Card title="搜索历史" class="transparent searchHistory" size="small">
+      <template #extra>
+        <span class="clear">清空</span>
+      </template>
+      <ScrollBox>
+        <div v-for="item in 20" :key="item" class="historyItem">{{ item }}</div>
+      </ScrollBox>
+    </Card>
   </LayerPage>
 </template>
+<script lang="ts" setup>
+import { Card } from 'ant-design-vue'
+import searchIcon from '@renderer/assets/tigers.svg?url'
+</script>
+<style lang="less" scoped>
+.searchIcon {
+  height: 20px;
+}
+.searchHistory {
+  margin-top: 10px;
+  .clear {
+    color: @text-color3;
+    cursor: pointer;
+  }
+  .historyItem {
+    padding: 0 15px;
+    background: #fff;
+    border-radius: 4px;
+    margin-right: 20px;
+    line-height: 30px;
+    &:first-child {
+      margin-left: 20px;
+    }
+  }
+}
+</style>

@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AInput: typeof import('ant-design-vue/es')['Input']
     Down: typeof import('./src/components/ScrollPage/components/down/index.vue')['default']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElRow: typeof import('element-plus/es')['ElRow']
@@ -15,7 +16,6 @@ declare module 'vue' {
     Layer: typeof import('./src/components/Layer/index.vue')['default']
     LayerPage: typeof import('./src/components/LayerPage/index.vue')['default']
     MusicItem: typeof import('./src/components/MusicItem/index.vue')['default']
-    Nav: typeof import('./src/components/Nav/index.vue')['default']
     NavBar: typeof import('./src/components/NavBar/index.vue')['default']
     Portal: typeof import('./src/components/Portal/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

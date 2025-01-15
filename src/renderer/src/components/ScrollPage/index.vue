@@ -21,7 +21,7 @@
 </template>
 
 <script lang="tsx" setup>
-import { nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, reactive, ref, watch, onActivated } from 'vue'
 import BScroll from '@better-scroll/core'
 import PullDown from '@better-scroll/pull-down'
 import Pullup from '@better-scroll/pull-up'
@@ -213,6 +213,12 @@ onBeforeUnmount(() => {
 
 onMounted(async () => {
   init(scrollRef.value)
+})
+
+onActivated(async () => {
+  await nextTick()
+  // init(scrollRef.value)
+  Scroll.refresh()
 })
 
 const setScrollState = () => {

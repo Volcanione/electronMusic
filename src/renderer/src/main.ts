@@ -1,5 +1,6 @@
 import 'animate.css'
 import './styles/base.less'
+import './styles/mixin.less'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import App from './App.vue'

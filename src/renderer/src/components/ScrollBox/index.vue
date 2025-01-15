@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import BScroll from '@better-scroll/core'
-import { onMounted, ref, onBeforeUnmount } from 'vue'
+import { onMounted, ref, onBeforeUnmount, nextTick, onActivated } from 'vue'
 import ObserveDOM from '@better-scroll/observe-dom'
 import { throttle } from 'lodash'
 import type { ScrollBoxProps } from '@renderer/types/components'
@@ -91,7 +91,14 @@ const resizeObserver = new ResizeObserver(async (entries) => {
 })
 
 onMounted(async () => {
+  await nextTick()
   init(scrollRef.value)
+})
+
+onActivated(async () => {
+  await nextTick()
+  // init(scrollRef.value)
+  Scroll.refresh()
 })
 
 onBeforeUnmount(() => {

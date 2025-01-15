@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { nextTick } from 'vue'
 import BScroll from '@better-scroll/core'
-const props = defineProps<{
+defineProps<{
   loading?: boolean
   pullDown?: (done: () => void) => Promise<void>
   pullUp?: (done: (state: -1 | 0 | 1 | 2) => void) => Promise<void>

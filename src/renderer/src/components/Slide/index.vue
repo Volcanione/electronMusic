@@ -22,7 +22,7 @@
 <script lang="ts" setup>
 import BScroll from '@better-scroll/core'
 import Slide from '@better-scroll/slide'
-import { onBeforeUnmount, ref, watch, nextTick, onMounted } from 'vue'
+import { onBeforeUnmount, ref, watch, nextTick, onMounted, onActivated } from 'vue'
 import { delay } from 'lodash'
 BScroll.use(Slide)
 
@@ -65,8 +65,13 @@ onBeforeUnmount(() => {
   slide.destroy && slide.destroy()
 })
 
-onMounted(() => {
+onMounted(async () => {
   init()
+})
+onActivated(async () => {
+  await nextTick()
+  // init(scrollRef.value)
+  slide.refresh()
 })
 </script>
 <style lang="less" scoped>

@@ -84,7 +84,8 @@ const handlerBack = () => {
     display: flex;
     align-items: center;
     overflow: hidden;
-
+    margin-left: 20px;
+    transition: all 0.3s;
     & > div {
       width: 100%;
     }
@@ -116,6 +117,9 @@ const handlerBack = () => {
 @media (max-width: 576px) {
   .left {
     display: flex !important;
+  }
+  .content {
+    margin-left: 0 !important;
   }
 }
 </style>

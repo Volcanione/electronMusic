@@ -64,7 +64,7 @@ watch(
   top: 0;
   bottom: 60px;
   left: 60px;
-  width: 100%;
+  right: 0;
   background: #f5f5f5;
   .layerRouteView {
     position: absolute;
