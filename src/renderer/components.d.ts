@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AInput: typeof import('ant-design-vue/es')['Input']
+    AInputSearch: typeof import('ant-design-vue/es')['InputSearch']
     Down: typeof import('./src/components/ScrollPage/components/down/index.vue')['default']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElRow: typeof import('element-plus/es')['ElRow']

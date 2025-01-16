@@ -1,5 +1,5 @@
 <template>
-  <ScrollPage :init="init" :pull-down="pullDownrefresh">
+  <ScrollPage auto-pull-down-refresh :pull-down="pullDownrefresh">
     <Flex align="stretch" class="mt20" wrap="wrap">
       <Slide :data="bannerList" class="banner mb20" />
       <Card style="flex: 1" class="mlr20 mb20" title="推荐歌单" size="small">

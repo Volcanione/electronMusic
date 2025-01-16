@@ -4,7 +4,7 @@
       <slot name="header" />
     </div>
     <div ref="contentRef" class="content">
-      <ScrollPage :pull-down="pullDown" :pull-up="pullUp" @init="init">
+      <ScrollPage v-bind="$props">
         <slot />
       </ScrollPage>
     </div>
@@ -17,17 +17,8 @@
 <script lang="ts" setup>
 import { nextTick } from 'vue'
 import BScroll from '@better-scroll/core'
-defineProps<{
-  loading?: boolean
-  pullDown?: (done: () => void) => Promise<void>
-  pullUp?: (done: (state: -1 | 0 | 1 | 2) => void) => Promise<void>
-  reSize?: () => void
-}>()
-const emit = defineEmits(['init', 'onresize'])
-const init = async (BScroll: BScroll) => {
-  await nextTick()
-  emit('init', BScroll)
-}
+import type { ScrollPageProps } from '@renderer/types/components'
+defineProps<ScrollPageProps>()
 </script>
 
 <style lang="less" scoped>

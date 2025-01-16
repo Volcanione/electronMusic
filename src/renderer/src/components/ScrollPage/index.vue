@@ -101,6 +101,7 @@ const init: any = async (el: HTMLElement) => {
     Scroll.on('enterThreshold', enterThresholdHandler)
     Scroll.on('leaveThreshold', leaveThresholdHandler)
     props.autoPullDownRefresh && Scroll.autoPullDownRefresh()
+    console.log(props.autoPullDownRefresh)
   }
   try {
     props.init && (await props.init(Scroll))

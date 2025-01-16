@@ -30,3 +30,12 @@ export function MusicUrl(data: any = {}) {
 export function MusicLyric(data: any = {}) {
   return request({ url: '/lyric', method: 'post', data })
 }
+
+//默认搜索
+export function DefaultSearch(data: any = {}) {
+  return request({ url: '/search/default', method: 'post', data })
+}
+//热门搜索
+export function HotSearch(data: any = {}) {
+  return request({ url: '/search/hot/detail', method: 'post', data })
+}
