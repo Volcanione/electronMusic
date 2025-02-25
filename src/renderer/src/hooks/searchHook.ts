@@ -19,10 +19,14 @@ export const SearchHook = () => {
     console.log(e)
   }
 
+  const HotSearchList = reactive([])
+
   const getHotSearch = async () => {
     try {
       const { data } = await HotSearch()
       console.log(data)
+      HotSearchList.length = 0
+      HotSearchList.push(...data)
     } catch (error) {
       //
     }
@@ -32,6 +36,7 @@ export const SearchHook = () => {
     getDefaultSearch,
     defaultSearch,
     search,
-    getHotSearch
+    getHotSearch,
+    HotSearchList
   }
 }

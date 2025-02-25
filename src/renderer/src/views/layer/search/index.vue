@@ -19,6 +19,11 @@
           <div v-for="item in 20" :key="item" class="historyItem">{{ item }}</div>
         </ScrollBox>
       </Card>
+      <Card title="热门搜索" class="transparent hotSearch" size="small">
+        <div v-for="item in HotSearchList" :key="item.score" class="hotItem">
+          {{ item.searchWord }}
+        </div>
+      </Card>
     </div>
   </LayerPage>
 </template>
@@ -27,7 +32,7 @@ import { Card } from 'ant-design-vue'
 import searchIcon from '@renderer/assets/tigers.svg?url'
 import { SearchHook } from '@renderer/hooks/searchHook'
 
-const { getDefaultSearch, defaultSearch, search, getHotSearch } = SearchHook()
+const { getDefaultSearch, defaultSearch, search, getHotSearch, HotSearchList } = SearchHook()
 
 const init = () => {
   try {
@@ -72,6 +77,21 @@ const pullDownrefresh = async (done) => {
   :deep(.ant-card-body) {
     padding-left: 0 !important;
     padding-right: 0 !important;
+  }
+}
+
+.hotSearch {
+  :deep(.ant-card-body) {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 10px;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  .hotItem {
   }
 }
 </style>
