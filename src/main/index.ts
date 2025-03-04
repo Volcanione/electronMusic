@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import Server from './server'
 
 function createWindow(): void {
   console.log(process.platform)
@@ -71,7 +72,8 @@ app.whenReady().then(() => {
   ipcMain.on('exit', () => {
     app.exit()
   })
-
+  //创建本地服务
+  Server()
   createWindow()
 
   app.on('activate', function () {

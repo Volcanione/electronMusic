@@ -13,6 +13,8 @@ import Layout from '@renderer/layout/index.vue'
 import { RouterHook } from '@renderer/hooks/routerHook'
 import { PageRouteConfig } from '@renderer/utils/index'
 
+import { Test } from '@renderer/api/client'
+
 //主题样式配置
 const themeConfig = {
   components: {
@@ -71,6 +73,8 @@ onMounted(() => {
 })
 
 provide('AppGlobalConfig', AppGlobalConfig)
+
+Test()
 </script>
 
 <style lang="less" scoped>

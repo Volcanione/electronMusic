@@ -15,8 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick } from 'vue'
-import BScroll from '@better-scroll/core'
 import type { ScrollPageProps } from '@renderer/types/components'
 defineProps<ScrollPageProps>()
 </script>

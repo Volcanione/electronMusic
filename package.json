@@ -16,7 +16,7 @@
     "build": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
-    "build:win": "npm run build && electron-builder --win ",
+    "build:win": "vue-tsc --noEmit && npm run build && electron-builder --win ",
     "build:mac": "npm run build && electron-builder --mac",
     "build:linux": "npm run build && electron-builder --linux"
   },
@@ -42,7 +42,9 @@
     "pinia": "^2.2.4",
     "vite-svg-loader": "^4.0.0",
     "vue-router": "^4.4.5",
-    "yarn": "^1.22.22"
+    "yarn": "^1.22.22",
+    "express": "^4.21.2",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",
