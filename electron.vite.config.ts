@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
           '/api': {
             // 匹配到啥来进行方向代理
             // target: "http://localhost:3000", //对应自己的接口
-            target: 'http://47.111.144.121:3000', //对应自己的接口
+            target: 'http://47.116.121.32:3000', //对应自己的接口
             changeOrigin: true,
             ws: true,
             rewrite: (path) => path.replace(/^\/api/, '') // 如果不需要api 直接把路径上的api 替换成空，这个
