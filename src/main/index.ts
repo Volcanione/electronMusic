@@ -90,7 +90,7 @@ app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.exit()
   }
 })
 

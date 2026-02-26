@@ -30,7 +30,7 @@
         a 47 47 0 1 1 0 94
         a 47 47 0 1 1 0 -94
         "
-        stroke="#20a0ff"
+        stroke="#ff9900"
         fill="none"
         stroke-linecap="round"
         stroke-width="7"

@@ -31,11 +31,14 @@
 import { Card } from 'ant-design-vue'
 import searchIcon from '@renderer/assets/tigers.svg?url'
 import { SearchHook } from '@renderer/hooks/searchHook'
+import { DeepSeekChartHook } from '@renderer/hooks/deepSeekHook'
 
 const { getDefaultSearch, defaultSearch, search, getHotSearch, HotSearchList } = SearchHook()
 
+const { chart } = DeepSeekChartHook()
 const init = () => {
   try {
+    chart()
     getDefaultSearch()
     getHotSearch()
   } catch (error) {
