@@ -5,7 +5,7 @@
 ## Goals / Non-Goals
 
 **Goals:**
-- 将环形进度条填充颜色更改为橙黄色。
+- 将环形进度条填充颜色更改为淡蓝色 (#87CEEB)。
 
 **Non-Goals:**
 - 不改变 SVG 路径结构或动画逻辑。
@@ -13,7 +13,7 @@
 
 ## Decisions
 
-- **颜色选择**: 使用 `#ff9900` 作为橙黄色。
+- **颜色选择**: 使用 `#87CEEB` 作为淡蓝色。
 - **实现方式**: 修改 `playProgress.vue` 中第 33 行的 `stroke` 属性。
 
 ## Risks / Trade-offs

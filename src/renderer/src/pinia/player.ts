@@ -11,7 +11,8 @@ export const storePlayer = defineStore('player', () => {
     playerMode: 'list',
     translateState: false,
     initBs: undefined, //bs 对象
-    homeControllerShow: true //bs 对象
+    homeControllerShow: true, //bs 对象
+    playListShow: false
   }) //播放器配置
   const MODELIST: Array<PlayerConfig['playerMode']> = ['alone', 'list', 'random'] //播放模式
   console.log(MODELIST)
@@ -69,6 +70,15 @@ export const storePlayer = defineStore('player', () => {
     Object.assign(playerConfig, {
       playerShow: state
     })
+  }
+
+  //设置playerListShow页面现实隐藏
+
+  const setPlayListShowState = (state: boolean = true) => {
+    Object.assign(playerConfig, {
+      playListShow: state
+    })
+    setHomeControllerShowState(!state)
   }
 
   //设置homeControllerShow页面现实隐藏
@@ -167,6 +177,7 @@ export const storePlayer = defineStore('player', () => {
     checkMusicByPlayList,
     setNowPlayId,
     setPlayerShowState,
+    setPlayListShowState,
     setPlayerMode,
     nextMusic,
     prevMusic,

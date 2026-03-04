@@ -22,6 +22,7 @@ export const PlayerHook = () => {
     playerConfig,
     setNowPlayId,
     setPlayerShowState,
+    setPlayListShowState,
     nextMusic,
     prevMusic,
     setPlayerMode,
@@ -31,7 +32,7 @@ export const PlayerHook = () => {
     setHomeControllerShowState
   } = PlayerStore
 
-  const { nowPlayData } = storeToRefs(PlayerStore)
+  const { nowPlayData, playerHisList, playerList } = storeToRefs(PlayerStore)
 
   //选择并播放
   const checkMusicPlaying = async (data: MusicItem, openPlayer?: boolean) => {
@@ -111,12 +112,19 @@ export const PlayerHook = () => {
     }
   })
 
+  const openList = () => {
+    // setPlayerMode('list')
+    console.log(12212121)
+    setPlayListShowState(true)
+  }
+
   return {
     checkMusicPlaying,
     mediaParam,
     playPause,
     playerConfig,
     setPlayerShowState,
+    setPlayListShowState,
     changeProgress,
     setPlayerMode,
     nextPlay,
@@ -124,6 +132,9 @@ export const PlayerHook = () => {
     nowPlayData,
     musicLyric,
     setPlayerTranslateState,
-    setHomeControllerShowState
+    setHomeControllerShowState,
+    openList,
+    playerHisList,
+    playerList
   }
 }

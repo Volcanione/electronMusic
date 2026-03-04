@@ -59,14 +59,4 @@ const router = createRouter({
   routes: constantRoutes
 })
 
-// 路由守卫
-// router.beforeEach((to, from, next) => {
-//   console.log(to)
-//   console.log(from)
-//   if (from.path !== '/') {
-//     return next()
-//   }
-//   next('/index')
-// })
-
 export default router

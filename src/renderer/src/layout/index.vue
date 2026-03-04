@@ -2,6 +2,8 @@
   <div id="APPlayout" class="layout">
     <MenuCom @change="changeMenu" />
     <PlayerPage :open="playerConfig.playerShow" @close="setPlayerShowState(false)" />
+
+    <PlayList :open="playerConfig.playListShow" @close="setPlayListShowState(false)" />
     <Layer />
     <Portal :to="AppGlobalConfig.pcMode ? '#layoutContent' : '#APPlayout'">
       <HomeController />
@@ -18,13 +20,14 @@ import MenuCom from './menu/index.vue'
 import HomeController from './player/HomeController/index.vue'
 import { PageRouteConfig } from '@renderer/utils/index'
 import PlayerPage from '@renderer/layout/player/index.vue'
+import PlayList from '@renderer/layout/player/PlayList/index.vue'
 import Layer from '@renderer/components/Layer/index.vue'
 import { PlayerHook } from '@renderer/hooks/playerHook'
 import { AudioHook } from '@renderer/hooks/audioHook'
 import { AudioElementKey, MediaParamKey } from '@renderer/types/injectionKey'
 
 const { initAudio, audioElement, mediaParam } = AudioHook()
-const { playerConfig, setPlayerShowState } = PlayerHook()
+const { playerConfig, setPlayerShowState, setPlayListShowState } = PlayerHook()
 const { route, router } = PageRouteConfig()
 
 //

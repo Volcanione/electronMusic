@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import Server from './server'
+import { installExtension, VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 function createWindow(): void {
   console.log(process.platform)
@@ -80,6 +81,13 @@ app.whenReady().then(() => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+
+  // installExtension(VUEJS_DEVTOOLS)
+  //   .then((ext) => console.log(`已安装扩展: ${ext.name}`))
+  //   .catch((err) => console.error('安装出错:', err))
+  installExtension(VUEJS_DEVTOOLS, {
+    loadExtensionOptions: { allowFileAccess: true }
   })
 })
 

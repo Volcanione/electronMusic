@@ -22,6 +22,7 @@
         class="el-progress-circle__track"
         style="stroke-dasharray: 295.31px, 295.31px; stroke-dashoffset: 0px"
       />
+      <!-- 进度条填充颜色：淡蓝色 (#87CEEB)，详见设计文档 openspec/changes/change-player-progress-color/design.md -->
       <path
         v-if="progress"
         d="
@@ -30,7 +31,7 @@
         a 47 47 0 1 1 0 94
         a 47 47 0 1 1 0 -94
         "
-        stroke="#ff9900"
+        stroke="#87CEEB"
         fill="none"
         stroke-linecap="round"
         stroke-width="7"

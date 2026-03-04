@@ -1,10 +1,6 @@
 <template>
   <div class="controller">
-    <div class="mode" @click="setPlayerMode">
-      <i v-if="playerConfig.playerMode === 'alone'" class="iconfont">&#xe6a2;</i>
-      <i v-else-if="playerConfig.playerMode === 'list'" class="iconfont">&#xe6a3;</i>
-      <i v-else class="iconfont">&#xe624;</i>
-    </div>
+    <Mode />
     <div class="prev" @click="prevPlay">
       <i class="iconfont">&#xe607;</i>
     </div>
@@ -15,7 +11,7 @@
     <div class="next" @click="nextPlay">
       <i class="iconfont">&#xe872;</i>
     </div>
-    <div class="list">
+    <div class="list" @click="openList">
       <i class="iconfont">&#xe6e4;</i>
     </div>
   </div>
@@ -23,7 +19,8 @@
 
 <script lang="ts" setup>
 import { PlayerHook } from '@renderer/hooks/playerHook'
-const { mediaParam, playerConfig, setPlayerMode, playPause, nextPlay, prevPlay } = PlayerHook()
+import Mode from './components/mode.vue'
+const { mediaParam, playPause, nextPlay, prevPlay, openList } = PlayerHook()
 const play = async () => {
   try {
     playPause()
@@ -74,7 +71,7 @@ const play = async () => {
     background: rgba(255, 255, 255, 0.5);
   }
 
-  .iconfont {
+  :deep(.iconfont) {
     color: #fff;
     font-size: 26px;
   }

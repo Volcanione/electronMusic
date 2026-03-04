@@ -11,6 +11,9 @@
     <div v-if="$slots.fixed" class="fixed">
       <slot name="fixed" />
     </div>
+    <div v-if="$slots.footer" class="footer">
+      <slot name="footer" />
+    </div>
   </div>
 </template>
 
@@ -34,7 +37,8 @@ defineProps<ScrollPageProps>()
     position: relative;
   }
 
-  .header {
+  .header,
+  .footer {
     z-index: 1;
     position: relative;
   }
